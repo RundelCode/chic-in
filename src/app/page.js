@@ -1,10 +1,11 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Login from './Login/page.jsx';
 
-export default function Home() {
+const Page = () => {
   return (
-    <main className={styles.main}>
-        <h1 className={styles.title}></h1>
-    </main>
+    <div>
+      <Login />
+    </div>
   );
-}
+};
+
+export default Page;
