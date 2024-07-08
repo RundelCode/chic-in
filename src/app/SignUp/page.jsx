@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import styles from './signup.module.css';
 import Image from 'next/image';
-import logo from '/public/images/LogoChicin.png'; // Asegúrate de que la ruta es correcta
+import logo from '../../../public/images/LogoChicIn.png';
 
 const SignUp = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);

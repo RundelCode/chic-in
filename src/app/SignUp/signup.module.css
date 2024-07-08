@@ -57,6 +57,13 @@
     background-color: #f3f3f3;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
+
+.inputBoxHalf input:focus{
+  outline: none;
+}
+.inputBox input:focus{
+  outline: none ;
+}
   
 .inputGroup {
     display: flex;
