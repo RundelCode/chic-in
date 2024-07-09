@@ -34,6 +34,10 @@
     border: 1px solid #ccc;
     font-size: 1rem;
 }
+
+.inputBox input:focus{
+    outline: none;
+  }
         
 .rememberForgot {
     display: flex;
@@ -97,3 +101,109 @@
 .logo {
     margin-bottom: 1rem;
 }
+
+@media (max-width: 992px) {
+    .formBox {
+      padding: 1.5rem;
+      max-width: 350px;
+    }
+  
+    .inputBox input {
+      width: 90%;
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+  
+    .button {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+    }
+  
+    .formBox h1 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+  
+    .inputBox h5 {
+      font-size: 0.8rem;
+    }
+  
+    .registerLink {
+      font-size: 0.8rem;
+    }
+  
+    .logo {
+      margin-bottom: 0.75rem;
+    }
+}
+  
+@media (max-width: 768px) {
+    .formBox {
+      padding: 1rem;
+      max-width: 300px;
+    }
+  
+    .inputBox input {
+      width: 85%;
+      padding: 0.4rem;
+      font-size: 0.85rem;
+    }
+  
+    .button {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.85rem;
+    }
+  
+    .formBox h1 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+  
+    .inputBox h5 {
+      font-size: 0.75rem;
+    }
+  
+    .registerLink {
+      font-size: 0.75rem;
+    }
+  
+    .logo {
+      margin-bottom: 0.5rem;
+    }
+}
+  
+@media (max-width: 576px) {
+    .formBox {
+      padding: 0.75rem;
+      max-width: 90%;
+    }
+  
+    .inputBox input {
+      width: 80%;
+      padding: 0.3rem;
+      font-size: 0.8rem;
+    }
+  
+    .button {
+      padding: 0.3rem 0.5rem;
+      font-size: 0.8rem;
+    }
+  
+    .formBox h1 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    .inputBox h5 {
+      font-size: 0.7rem;
+    }
+  
+    .registerLink {
+      font-size: 0.7rem;
+    }
+  
+    .logo {
+      margin-bottom: 0.5rem;
+    }
+}
+  
