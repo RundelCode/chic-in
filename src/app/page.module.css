@@ -149,3 +149,118 @@
 .serviceListLink{
     color: #000000;
 }
+
+@media (max-width: 1200px) {
+    .form {
+      width: 400px;
+    }
+  
+    .logo {
+      width: 350px;
+      height: 175px;
+    }
+}
+  
+@media (max-width: 992px) {
+    .form {
+      width: 350px;
+    }
+  
+    .formInputContainer {
+      width: 100%;
+    }
+  
+    .formRow {
+      flex-direction: column;
+    }
+  
+    .formInput, .selectBox {
+      width: 100%;
+    }
+  
+    .formRow, .longFormRow {
+      margin-bottom: 10px;
+    }
+}
+  
+@media (max-width: 768px) {
+    .topSection {
+      height: 50vh;
+    }
+  
+    .logo {
+      width: 300px;
+      height: 150px;
+    }
+  
+    .form {
+      width: 300px;
+      padding: 15px;
+    }
+  
+    .title {
+      font-size: 20px;
+      margin-top: -30px;
+    }
+  
+    .formInput, .selectBox {
+      height: 35px;
+    }
+  
+    .sendButton {
+      height: 35px;
+      font-size: 14px;
+    }
+}
+  
+  @media (max-width: 576px) {
+    .topSection {
+      height: 40vh;
+    }
+  
+    .logo {
+      width: 250px;
+      height: 125px;
+    }
+  
+    .form {
+      width: 90%;
+      padding: 10px;
+    }
+  
+    .title {
+      font-size: 18px;
+      margin-top: -20px;
+    }
+  
+    .formInput, .selectBox {
+      font-size: 14px;
+      height: 30px;
+    }
+  
+    .sendButton {
+      height: 30px;
+      font-size: 12px;
+    }
+  
+    .confirmation {
+      padding: 20px;
+    }
+  
+    .ConfirmationModal {
+      width: 80%;
+      height: auto;
+      padding: 15px;
+    }
+  
+    .confirmationText {
+      font-size: 20px;
+      text-align: center;
+    }
+  
+    .serviceListLink {
+      font-size: 16px;
+      text-align: center;
+    }
+}
+  
