@@ -9,6 +9,7 @@
     background-position: top;
     background-repeat: no-repeat;
     background-size: cover;
+    overflow-x: hidden;
 }
   
 .logo {
@@ -31,6 +32,7 @@
     width: 100%;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
 }
   
 .filterGroup {
@@ -75,6 +77,7 @@
     justify-content: center;
     padding: 20px;
     background-color: #f9f9f9;
+    overflow-x: hidden;
 }
 
 .serviceCard {
@@ -124,3 +127,160 @@
     font-size: 14px;
     width: 100%;
 }
+
+
+@media (max-width: 1200px) {
+    .filterContainer {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .filterGroup {
+      width: 100%;
+    }
+  
+    .filterSelect {
+      width: 100%;
+    }
+  
+    .serviceCard {
+      width: 300px;
+    }
+}
+  
+@media (max-width: 992px) {
+    .topSection {
+      height: 50vh;
+    }
+  
+    .logo {
+      width: 300px;
+      height: 150px;
+    }
+  
+    .title {
+      font-size: 20px;
+      margin-top: -20px;
+    }
+  
+    .filterContainer {
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+    }
+  
+    .filterGroup {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .filterSelect {
+      width: 100%;
+    }
+  
+    .servicesContainer {
+      padding: 10px;
+      gap: 15px;
+    }
+  
+    .serviceCard {
+      width: 280px;
+    }
+}
+  
+@media (max-width: 768px) {
+    .topSection {
+      height: 40vh;
+    }
+  
+    .logo {
+      width: 250px;
+      height: 125px;
+    }
+  
+    .title {
+      font-size: 18px;
+      margin-top: -10px;
+    }
+  
+    .filterContainer {
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+    }
+  
+    .filterGroup {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .filterSelect {
+      width: 100%;
+    }
+  
+    .servicesContainer {
+      padding: 10px;
+      gap: 10px;
+    }
+  
+    .serviceCard {
+      width: 250px;
+    }
+}
+  
+@media (max-width: 576px) {
+    .topSection {
+      height: 30vh;
+    }
+  
+    .logo {
+      width: 200px;
+      height: 100px;
+    }
+  
+    .title {
+      font-size: 16px;
+    }
+  
+    .filterContainer {
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+    }
+  
+    .filterGroup {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .filterSelect {
+      width: 100%;
+    }
+  
+    .servicesContainer {
+      padding: 10px;
+      gap: 10px;
+    }
+  
+    .serviceCard {
+      width: 100%;
+      padding: 15px;
+    }
+  
+    .serviceTitle {
+      font-size: 16px;
+    }
+  
+    .serviceDistance,
+    .serviceTime,
+    .serviceDescription,
+    .servicePrice {
+      font-size: 14px;
+    }
+  
+    .serviceButton {
+      font-size: 12px;
+      padding: 8px 10px;
+    }
+}
+  

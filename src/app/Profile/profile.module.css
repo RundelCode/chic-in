@@ -252,3 +252,172 @@
     justify-content: center;
     align-items: center;
 }
+
+@media (max-width: 1200px) {
+    .userDataContainer {
+      width: 50%;
+    }
+  
+    .userServices {
+      width: 50%;
+    }
+}
+  
+@media (max-width: 992px) {
+    .topSection {
+      height: 50vh;
+    }
+  
+    .logo {
+      width: 300px;
+      height: 150px;
+    }
+  
+    .title {
+      font-size: 20px;
+      margin-top: -20px;
+    }
+  
+    .bottomSection {
+      flex-direction: column;
+      align-items: center;
+      width: 80%;
+    }
+  
+    .userDataContainer {
+      width: 90%;
+      margin-bottom: 20px;
+    }
+  
+    .userServices {
+      width: 90%;
+    }
+  
+    .activeService, .serviceHistory {
+      width: 90%;
+      margin-bottom: 20px;
+      padding: 10px;
+      flex-direction: none;
+    }
+  
+    .serviceText, .serviceInfoText {
+      width: 90%;
+      text-align: left;
+      margin-bottom: 5px;
+    }
+  
+    .serviceIndex, .serviceInfo {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .contactButton, .cancelButton, .serviceState {
+      width: 90%;
+    }
+}
+  
+@media (max-width: 768px) {
+    .topSection {
+      height: 40vh;
+    }
+  
+    .logo {
+      width: 250px;
+      height: 125px;
+    }
+  
+    .title {
+      font-size: 18px;
+      margin-top: -10px;
+    }
+  
+    .userData {
+      width: 100%;
+    }
+  
+    .inputContainer {
+      width: 100%;
+    }
+  
+    .dataInput {
+      width: 100%;
+      height: 30px;
+    }
+  
+    .editData, .logOut {
+      width: 100%;
+      height: 30px;
+      font-size: 14px;
+    }
+  
+    .userServices {
+      width: 95%;
+    }
+  
+    .serviceTitle {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .contactButton {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .cancelButton, .serviceState {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+}
+  
+@media (max-width: 576px) {
+    .topSection {
+      height: 30vh;
+    }
+  
+    .logo {
+      width: 200px;
+      height: 100px;
+    }
+  
+    .title {
+      font-size: 16px;
+    }
+  
+    .userData {
+      width: 100%;
+      padding: 15px;
+    }
+  
+    .dataInput {
+      height: 25px;
+      font-size: 14px;
+    }
+  
+    .editData, .logOut {
+      height: 25px;
+      font-size: 12px;
+    }
+  
+    .userServices {
+      width: 100%;
+    }
+  
+    .serviceText, .serviceInfoText {
+      width: 100%;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+  
+    .serviceIndex, .serviceInfo {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .contactButton, .cancelButton, .serviceState {
+      width: 100%;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+}
+  
