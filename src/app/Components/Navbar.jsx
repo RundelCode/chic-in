@@ -8,8 +8,7 @@ const Navbar = ()=>{
             <Image className={Styles.logo} src='/images/Logo.png' alt="Chic In" width={'200'} height={'200'}/>
             <div className={Styles.links}>
                 <Link className={Styles.link} href={'/'}>Solicitar un servicio</Link>
-                <Link className={Styles.link} href={'#'}>Buscar un servicio</Link>
-                <Link className={Styles.link} href={'#'}>Mi perfil</Link>
+                <Link className={Styles.link} href={'/Profile'}>Mi perfil</Link>
             </div>
         </span>
     )

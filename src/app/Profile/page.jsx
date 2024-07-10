@@ -3,26 +3,19 @@ import { useEffect, useState } from 'react';
 import styles from './profile.module.css'
 import Navbar from '../Components/Navbar';
 import Image from 'next/image';
-
-const userdata = {
-    id: "1111",
-    name: "Javier Gómez",
-    email: "jgec070702@gmail.com",
-    address: "Bonanza de la pradera torre 2 apto 806",
-    phone: "3148735894"
-}
-
-const activeService = {
-    id: "1111",
-    title: "Pestañas a domicilio en Pereira",
-    price: "120.000",
-    requestDate: "30/06/2024",
-    finalDate: "01/03/2024-03:00PM",
-    state: "Cancelado"
-}
-
+import { useAuth } from '../context/authContext';
+import { useService } from '../context/serviceContext';
+import { useRouter } from 'next/navigation';
+import { useProvider } from '../context/providerContext';
 
 const Profile = () => {
+    const { logout, user, editUserData } = useAuth();
+    const { activeService, cancelService, getHistory } = useService();
+    const { getProvider } = useProvider();
+    const [service, setService] = useState(null)
+    const [history, setHistory] = useState(null)
+
+    const router = useRouter();
     const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -30,12 +23,55 @@ const Profile = () => {
     const [phone, setPhone] = useState("");
 
     useEffect(() => {
-        setId(userdata.id);
-        setName(userdata.name)
-        setEmail(userdata.email)
-        setAdress(userdata.address)
-        setPhone(userdata.phone)
-    }, [])
+        if (!user) {
+            router.push('/LogIn');
+        } else {
+            try {
+                if (activeService) {
+                    const decodedService = JSON.parse(activeService);
+                    setService(decodedService);
+                } else {
+                    setService(null);
+                }
+            } catch (error) {
+                console.error('Error parsing service:', error);
+                setService(null);
+            }
+
+            try {
+                setHistory(getHistory(user.id))
+            } catch (error) {
+                console.error('Cant get history', error);
+                setHistory(null)
+            }
+
+            setId(user.id);
+            setName(user.name);
+            setEmail(user.email);
+            setAdress(user.address);
+            setPhone(user.phone);
+        }
+    }, []);
+
+    const handleLogout = () => {
+        logout()
+    }
+
+    const providerContact = () => {
+        //https://wa.me/573148735894
+        const provider = getProvider(service.providerId)
+
+        router.push(`https://wa.me/${provider.phone}`)
+    }
+
+    const editData = () => {
+        editUserData(user.id)
+    }
+
+    const cancelActiveService = () => {
+        cancelService(service.id)
+    }
+
     return (
         <div className={styles.main}>
             <Navbar></Navbar>
@@ -63,20 +99,19 @@ const Profile = () => {
                             <input type='text' className={styles.dataInput} placeholder={phone}></input>
                         </div>
                         <div className={styles.inputContainer}>
-                            <button className={styles.editData} id='editData'>Modificar datos</button>
+                            <button className={styles.editData} onClick={editData} id='editData'>Modificar datos</button>
 
                         </div>
                         <div className={styles.inputContainer}>
-                            <button className={styles.logOut} id='logOut'>Cerrar sesión</button>
+                            <button className={styles.logOut} onClick={handleLogout} id='logOut'>Cerrar sesión</button>
                         </div>
                     </div>
-
                 </div>
                 <div className={styles.userServices}>
                     <div className={styles.activeService}>
                         <div className={styles.serviceTitle}>
                             <h2>Servicio activo</h2>
-                            <button className={styles.contactButton}>Contactar al proveedor</button>
+                            <button onClick={providerContact} className={styles.contactButton}>Contactar al proveedor</button>
                         </div>
                         <div className={styles.serviceIndex}>
                             <p className={styles.serviceText}>Titulo</p>
@@ -85,15 +120,19 @@ const Profile = () => {
                             <p className={styles.serviceText}>Fecha de realizacion</p>
                             <p className={styles.serviceText}></p>
                         </div>
-                        <div className={styles.serviceInfo}>
-                            <p className={styles.serviceInfoText}>{activeService.title}</p>
-                            <p className={styles.serviceInfoText}>{activeService.price}</p>
-                            <p className={styles.serviceInfoText}>{activeService.requestDate}</p>
-                            <p className={styles.serviceInfoText}>{activeService.finalDate}</p>
-                            <div className={styles.serviceInfoText}>
-                                <button className={styles.cancelButton}>Cancelar</button>
+                        {service ? (
+                            <div className={styles.serviceInfo}>
+                                <p className={styles.serviceInfoText}>{service.title}</p>
+                                <p className={styles.serviceInfoText}>{service.price}</p>
+                                <p className={styles.serviceInfoText}>{service.requestDate}</p>
+                                <p className={styles.serviceInfoText}>{service.finishDate}</p>
+                                <div className={styles.serviceInfoText}>
+                                    <button onClick={cancelActiveService} className={styles.cancelButton}>Cancelar</button>
+                                </div>
                             </div>
-                        </div>
+                        ) : (
+                            <p>No hay servicio activo.</p>
+                        )}
                     </div>
                     <div className={styles.serviceHistory}>
                         <div className={styles.serviceTitle}>
@@ -106,15 +145,21 @@ const Profile = () => {
                             <p className={styles.serviceText}>Fecha de realizacion</p>
                             <p className={styles.serviceText}>Estado</p>
                         </div>
-                        <div className={styles.serviceInfo}>
-                            <p className={styles.serviceInfoText}>{activeService.title}</p>
-                            <p className={styles.serviceInfoText}>${activeService.price} COP</p>
-                            <p className={styles.serviceInfoText}>{activeService.requestDate}</p>
-                            <p className={styles.serviceInfoText}>{activeService.finalDate}</p>
-                            <div className={styles.serviceInfoText}>
-                                <div className={styles.serviceState}>{activeService.state}</div>
-                            </div>
-                        </div>
+                        {history && history.length > 0 ? (
+                            history.map((item, index) => (
+                                <div key={index} className={styles.serviceInfo}>
+                                    <p className={styles.serviceInfoText}>{item.title}</p>
+                                    <p className={styles.serviceInfoText}>${item.price} COP</p>
+                                    <p className={styles.serviceInfoText}>{item.requestDate}</p>
+                                    <p className={styles.serviceInfoText}>{item.finishDate}</p>
+                                    <div className={styles.serviceInfoText}>
+                                        <div className={styles.serviceState}>{item.status}</div>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No hay historial de servicios.</p>
+                        )}
                     </div>
                 </div>
             </div>

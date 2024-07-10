@@ -26,7 +26,7 @@
     display: flex;
     justify-content: center;
     gap: 15px;
-    padding: 20px;
+    padding: 20px 0px 20px 0px;
     background-color: #f4f4f4;
     border: 1px solid #ccc;
     width: 100%;
@@ -70,14 +70,17 @@
     outline: none;
 }
 
+
+
 .servicesContainer {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    align-items: center;
     justify-content: center;
-    padding: 20px;
-    background-color: #f9f9f9;
     overflow-x: hidden;
+    width: 70%;
+    padding: 30px 20px 30px 20px
 }
 
 .serviceCard {
@@ -136,7 +139,7 @@
     }
   
     .filterGroup {
-      width: 100%;
+      width: 90%;
     }
   
     .filterSelect {
@@ -166,11 +169,10 @@
     .filterContainer {
       flex-direction: column;
       align-items: center;
-      padding: 10px;
     }
   
     .filterGroup {
-      width: 100%;
+      width: 90%;
       margin-bottom: 10px;
     }
   
@@ -206,11 +208,10 @@
     .filterContainer {
       flex-direction: column;
       align-items: center;
-      padding: 10px;
     }
   
     .filterGroup {
-      width: 100%;
+      width: 90%;
       margin-bottom: 10px;
     }
   
@@ -245,11 +246,10 @@
     .filterContainer {
       flex-direction: column;
       align-items: center;
-      padding: 10px;
     }
   
     .filterGroup {
-      width: 100%;
+      width: 90%;
       margin-bottom: 10px;
     }
   
