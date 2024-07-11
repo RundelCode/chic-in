@@ -23,12 +23,6 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(()=>{
-    if(!user){
-      router.push("/LogIn")
-    }
-    else{
-      
-    }
   }, [])
 
   const handleSubmit = (event) => {

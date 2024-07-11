@@ -7,6 +7,8 @@ import { useAuth } from '../context/authContext';
 import { useService } from '../context/serviceContext';
 import { useRouter } from 'next/navigation';
 import { useProvider } from '../context/providerContext';
+import Cookies from 'js-cookie';
+import AuthGuard from '../Components/AuthGuard';
 
 const Profile = () => {
     const { logout, user, editUserData } = useAuth();
@@ -23,9 +25,11 @@ const Profile = () => {
     const [phone, setPhone] = useState("");
 
     useEffect(() => {
-        if (!user) {
+        const auth = Cookies.get('token');
+        if (!auth) {
             router.push('/LogIn');
-        } else {
+        }
+        else {
             try {
                 if (activeService) {
                     const decodedService = JSON.parse(activeService);
@@ -37,7 +41,6 @@ const Profile = () => {
                 console.error('Error parsing service:', error);
                 setService(null);
             }
-
             try {
                 setHistory(getHistory(user.id))
             } catch (error) {
@@ -50,7 +53,7 @@ const Profile = () => {
             setAdress(user.address);
             setPhone(user.phone);
         }
-    }, []);
+    }, [router]);
 
     const handleLogout = () => {
         logout()
@@ -71,6 +74,7 @@ const Profile = () => {
     }
 
     return (
+        <AuthGuard>
         <div className={styles.main}>
             <Navbar></Navbar>
             <div className={styles.topSection}>
@@ -162,6 +166,7 @@ const Profile = () => {
                 </div>
             </div>
         </div>
+        </AuthGuard>
     )
 }
 

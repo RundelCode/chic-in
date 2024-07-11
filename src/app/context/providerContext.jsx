@@ -21,7 +21,7 @@ export const ProviderProvider = ({ children }) => {
                 setUser(decodedToken);
             } catch (error) {
                 console.error('Error parsing token:', error);
-                Cookies.remove('token'); // Remove invalid token
+                Cookies.remove('token');
             }
         }
         const tokenType = Cookies.get("tokenType");
@@ -74,7 +74,6 @@ export const ProviderProvider = ({ children }) => {
         catch (err) {
             console.error(`Error editing the provider data: ${err}`);
         }
-
     }
 
     const logOut = () => {

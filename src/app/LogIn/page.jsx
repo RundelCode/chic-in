@@ -3,16 +3,29 @@ import styles from './login.module.css';
 import Image from 'next/image';
 import { useAuth } from '../context/authContext';
 import Link from 'next/link';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
+
+const userData = {
+  id: "12345",
+  name: "Javier Gómez",
+  email: "jgec070702@gmail.com",
+  password: "123dxakjajndoduw2423131",
+  city: "Pereira",
+  address: "Bonanza de la pradera torre 2 apto 806",
+  phone: "3148735894"
+}
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login, setUser} = useAuth();
+  const router = useRouter();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.emailInput.value;
     const password = form.passwordInput.value;
-    login(email, password);
+    login(userData)
   }
 
   return (
