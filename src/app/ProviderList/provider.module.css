@@ -70,8 +70,6 @@
     outline: none;
 }
 
-
-
 .servicesContainer {
     display: flex;
     flex-wrap: wrap;
@@ -79,8 +77,8 @@
     align-items: center;
     justify-content: center;
     overflow-x: hidden;
-    width: 70%;
-    padding: 30px 20px 30px 20px
+    width: 100%;
+    padding: 30px 0px 30px 0px
 }
 
 .serviceCard {
@@ -181,7 +179,7 @@
     }
   
     .servicesContainer {
-      padding: 10px;
+      
       gap: 15px;
     }
   
@@ -220,7 +218,6 @@
     }
   
     .servicesContainer {
-      padding: 10px;
       gap: 10px;
     }
   
@@ -258,12 +255,11 @@
     }
   
     .servicesContainer {
-      padding: 10px;
       gap: 10px;
     }
   
     .serviceCard {
-      width: 100%;
+      width: 80%;
       padding: 15px;
     }
   

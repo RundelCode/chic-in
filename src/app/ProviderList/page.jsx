@@ -1,7 +1,7 @@
 'use client';
 import Image from "next/image";
 import styles from "./provider.module.css";
-import Navbar from "../Components/Navbar"; // Asegúrate de que esta ruta sea correcta
+import Navbar from "../Components/Navbar";
 
 const providerList = () => {
   return (

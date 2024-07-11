@@ -2,7 +2,6 @@
 import styles from './login.module.css';
 import Image from 'next/image';
 import { useAuth } from '../context/authContext';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 const Login = () => {

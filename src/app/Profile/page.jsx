@@ -44,7 +44,6 @@ const Profile = () => {
                 console.error('Cant get history', error);
                 setHistory(null)
             }
-
             setId(user.id);
             setName(user.name);
             setEmail(user.email);
@@ -60,7 +59,6 @@ const Profile = () => {
     const providerContact = () => {
         //https://wa.me/573148735894
         const provider = getProvider(service.providerId)
-
         router.push(`https://wa.me/${provider.phone}`)
     }
 

@@ -1,5 +1,4 @@
 'use client'
-
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'
 
@@ -79,8 +78,12 @@ export const ServiceProvider = ({ children }) => {
     const [activeService, setActiveService] = useState(null);
     const router = useRouter()
 
+    const APIURL = process.env.NEXT_PUBLIC_API_URL;
+    const APIKEY = process.env.NEXT_PUBLIC_API_KEY;
+
     useEffect(() => {
         setActiveService(JSON.stringify(Service))
+        console.log(APIKEY)
     }, [])
 
     const requestService = (service)=>{
