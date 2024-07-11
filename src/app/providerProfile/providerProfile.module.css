@@ -285,6 +285,7 @@
 
     .userData{
         margin: 0px;
+        margin-top: 20px;
     }
 
     .userServices{
@@ -295,9 +296,31 @@
         width: 100%;
         height: auto;
     }
+    .serviceInfo{
+        width: 100%;
+    }
+    .serviceInfoText{
+        font-size: 12px;
+        width: 88%;
+    }
+    .serviceHistory{
+        padding: 1%;
+        width: 90%;
+    }
 
     .title{
         margin: 0;
     }
+    
 
+}
+
+.buttonSection button:hover{
+    cursor: pointer;
+    
+}
+
+.buttonSection button:active{
+    cursor:default;
+    box-shadow: 0px 0px 0px 1px #00000038;
 }
