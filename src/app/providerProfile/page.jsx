@@ -27,7 +27,6 @@ const activeService = {
     comments: "me gustaría agendar una cita para un lifting de pestañas ya que tengo un matrimonio el dia de mañana."
 }
 
-
 const ProviderProfile = () => {
     const [id, setId] = useState("");
     const [name, setName] = useState("");
@@ -42,6 +41,22 @@ const ProviderProfile = () => {
         setAdress(userdata.address)
         setPhone(userdata.phone)
     }, [])
+
+    const handdleMarkAsCompleted = (serviceId)=>{
+
+    }
+
+    const handleLogOut = ()=>{
+
+    }
+
+    const handleMarkAsCompleted= ()=>{
+
+    }
+
+    const showCalendar = ()=>{
+
+    }
     return (
         <div className={styles.main}>
             <Navbar></Navbar>
@@ -82,7 +97,7 @@ const ProviderProfile = () => {
                 <div className={styles.userServices}>
                     <div className={styles.serviceHistory}>
                         <div className={styles.serviceTitle}>
-                            <h2>Servicio activo</h2>
+                            <h2>Historial de servicios</h2>
                         </div>
                         <div className={styles.serviceIndex}>
                             <p className={styles.serviceText}>Titulo</p>

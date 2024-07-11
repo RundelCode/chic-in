@@ -25,7 +25,11 @@ const Login = () => {
     const form = event.target;
     const email = form.emailInput.value;
     const password = form.passwordInput.value;
-    login(userData)
+    const data = {
+      email: email,
+      password: password
+    }
+    login(data)
   }
 
   return (

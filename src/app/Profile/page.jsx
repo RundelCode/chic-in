@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useProvider } from '../context/providerContext';
 import Cookies from 'js-cookie';
 import AuthGuard from '../Components/AuthGuard';
+import TypeGuard2 from '../Components/TypeGuard2';
 
 const Profile = () => {
     const { logout, user, editUserData } = useAuth();
@@ -47,11 +48,16 @@ const Profile = () => {
                 console.error('Cant get history', error);
                 setHistory(null)
             }
-            setId(user.id);
-            setName(user.name);
-            setEmail(user.email);
-            setAdress(user.address);
-            setPhone(user.phone);
+            if (user) {
+                setId(user.id);
+                setName(user.name);
+                setEmail(user.email);
+                setAdress(user.address);
+                setPhone(user.phone);
+            }
+            else{
+                router.push("/LogIn")
+            }
         }
     }, [router]);
 
@@ -75,97 +81,99 @@ const Profile = () => {
 
     return (
         <AuthGuard>
-        <div className={styles.main}>
-            <Navbar></Navbar>
-            <div className={styles.topSection}>
-                <Image className={styles.logo} src='/images/LogoChicIn.png' alt="Chic In" width={'500'} height={'200'} />
-                <h1 className={styles.title}>Mi perfil</h1>
-            </div>
-            <div className={styles.bottomSection}>
-                <div className={styles.userDataContainer}>
-                    <div className={styles.userData}>
-                        <div className={styles.inputContainer}>
-                            <p>Nombre completo</p>
-                            <input type='text' className={styles.dataInput} placeholder={name}></input>
-                        </div>
-                        <div className={styles.inputContainer}>
-                            <p>Correo electronico</p>
-                            <input type='text' className={styles.dataInput} placeholder={email}></input>
-                        </div>
-                        <div className={styles.inputContainer}>
-                            <p>Dirección</p>
-                            <input type='text' className={styles.dataInput} placeholder={address}></input>
-                        </div>
-                        <div className={styles.inputContainer}>
-                            <p>Telefono</p>
-                            <input type='text' className={styles.dataInput} placeholder={phone}></input>
-                        </div>
-                        <div className={styles.inputContainer}>
-                            <button className={styles.editData} onClick={editData} id='editData'>Modificar datos</button>
-
-                        </div>
-                        <div className={styles.inputContainer}>
-                            <button className={styles.logOut} onClick={handleLogout} id='logOut'>Cerrar sesión</button>
-                        </div>
-                    </div>
+            <TypeGuard2>
+            <div className={styles.main}>
+                <Navbar></Navbar>
+                <div className={styles.topSection}>
+                    <Image className={styles.logo} src='/images/LogoChicIn.png' alt="Chic In" width={'500'} height={'200'} />
+                    <h1 className={styles.title}>Mi perfil</h1>
                 </div>
-                <div className={styles.userServices}>
-                    <div className={styles.activeService}>
-                        <div className={styles.serviceTitle}>
-                            <h2>Servicio activo</h2>
-                            <button onClick={providerContact} className={styles.contactButton}>Contactar al proveedor</button>
-                        </div>
-                        <div className={styles.serviceIndex}>
-                            <p className={styles.serviceText}>Titulo</p>
-                            <p className={styles.serviceText}>Precio</p>
-                            <p className={styles.serviceText}>Fecha de solicitadud</p>
-                            <p className={styles.serviceText}>Fecha de realizacion</p>
-                            <p className={styles.serviceText}></p>
-                        </div>
-                        {service ? (
-                            <div className={styles.serviceInfo}>
-                                <p className={styles.serviceInfoText}>{service.title}</p>
-                                <p className={styles.serviceInfoText}>{service.price}</p>
-                                <p className={styles.serviceInfoText}>{service.requestDate}</p>
-                                <p className={styles.serviceInfoText}>{service.finishDate}</p>
-                                <div className={styles.serviceInfoText}>
-                                    <button onClick={cancelActiveService} className={styles.cancelButton}>Cancelar</button>
-                                </div>
+                <div className={styles.bottomSection}>
+                    <div className={styles.userDataContainer}>
+                        <div className={styles.userData}>
+                            <div className={styles.inputContainer}>
+                                <p>Nombre completo</p>
+                                <input type='text' className={styles.dataInput} placeholder={name}></input>
                             </div>
-                        ) : (
-                            <p>No hay servicio activo.</p>
-                        )}
+                            <div className={styles.inputContainer}>
+                                <p>Correo electronico</p>
+                                <input type='text' className={styles.dataInput} placeholder={email}></input>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <p>Dirección</p>
+                                <input type='text' className={styles.dataInput} placeholder={address}></input>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <p>Telefono</p>
+                                <input type='text' className={styles.dataInput} placeholder={phone}></input>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <button className={styles.editData} onClick={editData} id='editData'>Modificar datos</button>
+
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <button className={styles.logOut} onClick={handleLogout} id='logOut'>Cerrar sesión</button>
+                            </div>
+                        </div>
                     </div>
-                    <div className={styles.serviceHistory}>
-                        <div className={styles.serviceTitle}>
-                            <h2>Historial de servicios</h2>
-                        </div>
-                        <div className={styles.serviceIndex}>
-                            <p className={styles.serviceText}>Titulo</p>
-                            <p className={styles.serviceText}>Precio</p>
-                            <p className={styles.serviceText}>Fecha de solicitadud</p>
-                            <p className={styles.serviceText}>Fecha de realizacion</p>
-                            <p className={styles.serviceText}>Estado</p>
-                        </div>
-                        {history && history.length > 0 ? (
-                            history.map((item, index) => (
-                                <div key={index} className={styles.serviceInfo}>
-                                    <p className={styles.serviceInfoText}>{item.title}</p>
-                                    <p className={styles.serviceInfoText}>${item.price} COP</p>
-                                    <p className={styles.serviceInfoText}>{item.requestDate}</p>
-                                    <p className={styles.serviceInfoText}>{item.finishDate}</p>
+                    <div className={styles.userServices}>
+                        <div className={styles.activeService}>
+                            <div className={styles.serviceTitle}>
+                                <h2>Servicio activo</h2>
+                                <button onClick={providerContact} className={styles.contactButton}>Contactar al proveedor</button>
+                            </div>
+                            <div className={styles.serviceIndex}>
+                                <p className={styles.serviceText}>Titulo</p>
+                                <p className={styles.serviceText}>Precio</p>
+                                <p className={styles.serviceText}>Fecha de solicitadud</p>
+                                <p className={styles.serviceText}>Fecha de realizacion</p>
+                                <p className={styles.serviceText}></p>
+                            </div>
+                            {service ? (
+                                <div className={styles.serviceInfo}>
+                                    <p className={styles.serviceInfoText}>{service.title}</p>
+                                    <p className={styles.serviceInfoText}>{service.price}</p>
+                                    <p className={styles.serviceInfoText}>{service.requestDate}</p>
+                                    <p className={styles.serviceInfoText}>{service.finishDate}</p>
                                     <div className={styles.serviceInfoText}>
-                                        <div className={styles.serviceState}>{item.status}</div>
+                                        <button onClick={cancelActiveService} className={styles.cancelButton}>Cancelar</button>
                                     </div>
                                 </div>
-                            ))
-                        ) : (
-                            <p>No hay historial de servicios.</p>
-                        )}
+                            ) : (
+                                <p>No hay servicio activo.</p>
+                            )}
+                        </div>
+                        <div className={styles.serviceHistory}>
+                            <div className={styles.serviceTitle}>
+                                <h2>Historial de servicios</h2>
+                            </div>
+                            <div className={styles.serviceIndex}>
+                                <p className={styles.serviceText}>Titulo</p>
+                                <p className={styles.serviceText}>Precio</p>
+                                <p className={styles.serviceText}>Fecha de solicitadud</p>
+                                <p className={styles.serviceText}>Fecha de realizacion</p>
+                                <p className={styles.serviceText}>Estado</p>
+                            </div>
+                            {history && history.length > 0 ? (
+                                history.map((item, index) => (
+                                    <div key={index} className={styles.serviceInfo}>
+                                        <p className={styles.serviceInfoText}>{item.title}</p>
+                                        <p className={styles.serviceInfoText}>${item.price} COP</p>
+                                        <p className={styles.serviceInfoText}>{item.requestDate}</p>
+                                        <p className={styles.serviceInfoText}>{item.finishDate}</p>
+                                        <div className={styles.serviceInfoText}>
+                                            <div className={styles.serviceState}>{item.status}</div>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No hay historial de servicios.</p>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            </TypeGuard2>
         </AuthGuard>
     )
 }

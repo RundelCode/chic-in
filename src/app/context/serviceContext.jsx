@@ -76,19 +76,23 @@ const serviceList = [
 
 export const ServiceProvider = ({ children }) => {
     const [activeService, setActiveService] = useState(null);
-    const router = useRouter()
+    const [pendingService, setPendingService] = useState(null);
 
     const APIURL = process.env.NEXT_PUBLIC_API_URL;
     const APIKEY = process.env.NEXT_PUBLIC_API_KEY;
 
     useEffect(() => {
         setActiveService(JSON.stringify(Service))
-        console.log(APIKEY)
     }, [])
 
     const requestService = (service)=>{
         console.log(service)
     }
+
+    const setServiceAsPending = (service)=>{
+        setPendingService(service);
+    }
+
 
     const getServices = () => {
 
@@ -102,6 +106,14 @@ export const ServiceProvider = ({ children }) => {
 
     }
 
+    const markAsOnRoad = () => {
+
+    }
+
+    const markAsFinished = () => {
+
+    }
+
     const getHistory = (userId) => {
         return(serviceList)
     }
@@ -111,7 +123,7 @@ export const ServiceProvider = ({ children }) => {
     }
 
     return (
-        <ServiceContext.Provider value={{requestService, getHistory, activeService, getServices, getActiveService, aceptService, cancelService }}>
+        <ServiceContext.Provider value={{pendingService, setServiceAsPending, requestService, getHistory, activeService, getServices, getActiveService, aceptService, cancelService }}>
             {children}
         </ServiceContext.Provider>
     );

@@ -22,7 +22,6 @@ export const AuthProvider = ({ children }) => {
                 setUser(decodedToken);
             } catch (error) {
                 console.error('Error parsing token:', error);
-                Cookies.remove('token');
             }
         }
         const tokenType = Cookies.get("tokenType");
@@ -31,23 +30,24 @@ export const AuthProvider = ({ children }) => {
         }
     }, []);
 
-    const login = (userData) => {
+    const login2 = (userData) => {
         setUser(userData);
         Cookies.set('token', JSON.stringify(userData), { expires: 7, path: '/' });
         Cookies.set('tokenType', 'clients', { expires: 7, path: '/' });
         router.push('/');
     };
 
-    const login2 = async (userData) => {
+    const login = async (userData) => {
         try {
             const response = await axios.post(`${APIURL}/api/${userType}/login`, userData, {
                 headers: {
-                    'Authorization': `${APIKEY}`,
+                    'Authorization': `Bearer ${APIKEY}`,
                     'Content-Type': 'application/json'
                 }
             });
-            setUser(response.data);
-            Cookies.set('token', JSON.stringify(response.data), { expires: 7, path: '/' });
+            const userToken = response.data;
+            setUser(userToken);
+            Cookies.set('token', JSON.stringify(userToken), { expires: 7, path: '/' });
             Cookies.set('tokenType', 'clients', { expires: 7, path: '/' });
             router.push('/');
         } catch (err) {
@@ -57,10 +57,10 @@ export const AuthProvider = ({ children }) => {
 
     const register = async (userData) => {
         try {
-            const response = await axios.post(`${APIURL}/api/${userType}/signup`, userData, {
+            const response = await axios.post(`${APIURL}/api/clients/signup`, userData, {
                 headers: {
-                    'Authorization': `${APIKEY}`,
-                    'Content-Type': 'application/json'
+                    'Authorization': `Bearer ${APIKEY}`,
+                    'Content-Type': 'application/json',
                 }
             });
             const userToken = response.data;
