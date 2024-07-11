@@ -148,6 +148,28 @@
     color: #000000;
 }
 
+.alert{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.alert p{
+  font-size: 24px;
+}
+
+.alert .profileLink{
+  font-size: 24px;
+  background-color: #F6DCDC;
+  border-radius: 5px;
+  padding: 10px;
+  color: #000000;
+  text-decoration: none;
+}
+
 @media (max-width: 1200px) {
     .form {
       width: 400px;

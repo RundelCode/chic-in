@@ -285,6 +285,7 @@
 
     .userData{
         margin: 0px;
+        margin-top: 20px;
     }
 
     .userServices{
@@ -295,10 +296,22 @@
         width: 100%;
         height: auto;
     }
+    .serviceInfo{
+        width: 100%;
+    }
+    .serviceInfoText{
+        font-size: 12px;
+        width: 88%;
+    }
+    .serviceHistory{
+        padding: 1%;
+        width: 90%;
+    }
 
     .title{
         margin: 0;
     }
+    
 
 }
 

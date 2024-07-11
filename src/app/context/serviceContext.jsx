@@ -1,121 +1,133 @@
 'use client'
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'
+import axios from 'axios';
+import Cookies from 'js-cookie';
+
 
 const ServiceContext = createContext();
-
-const Service = {
-    id: "678910",
-    title: "Lifting de pestañas en la ciudad de pereira",
-    description: "jme gustaría agendar una cita para un lifting de pestañas ya que tengo un matrimonio el dia de mañana.",
-    price: 150000,
-    requestDate: "30/06/2024",
-    finishDate: "01/07/2024",
-    status: "active",
-    clientId: "12345",
-    providerId: "2468",
-    city: "Pereira",
-    category: "Lifting de pestañas"
-}
-
-const serviceList = [
-    {
-        id: "678910",
-        title: "Lifting de pestañas en la ciudad de pereira",
-        description: "jme gustaría agendar una cita para un lifting de pestañas ya que tengo un matrimonio el dia de mañana.",
-        price: 150000,
-        requestDate: "30/06/2024",
-        finishDate: "01/07/2024",
-        status: "active",
-        clientId: "12345",
-        providerId: "2468",
-        city: "Pereira",
-        category: "Lifting de pestañas"
-    },
-    {
-        id: "678910",
-        title: "Lifting de pestañas en la ciudad de pereira",
-        description: "jme gustaría agendar una cita para un lifting de pestañas ya que tengo un matrimonio el dia de mañana.",
-        price: 150000,
-        requestDate: "30/06/2024",
-        finishDate: "01/07/2024",
-        status: "active",
-        clientId: "12345",
-        providerId: "2468",
-        city: "Pereira",
-        category: "Lifting de pestañas"
-    },
-    {
-        id: "678910",
-        title: "Lifting de pestañas en la ciudad de pereira",
-        description: "jme gustaría agendar una cita para un lifting de pestañas ya que tengo un matrimonio el dia de mañana.",
-        price: 150000,
-        requestDate: "30/06/2024",
-        finishDate: "01/07/2024",
-        status: "active",
-        clientId: "12345",
-        providerId: "2468",
-        city: "Pereira",
-        category: "Lifting de pestañas"
-    },
-    {
-        id: "678910",
-        title: "Lifting de pestañas en la ciudad de pereira",
-        description: "jme gustaría agendar una cita para un lifting de pestañas ya que tengo un matrimonio el dia de mañana.",
-        price: 150000,
-        requestDate: "30/06/2024",
-        finishDate: "01/07/2024",
-        status: "active",
-        clientId: "12345",
-        providerId: "2468",
-        city: "Pereira",
-        category: "Lifting de pestañas"
-    }
-
-]
 
 export const ServiceProvider = ({ children }) => {
     const [activeService, setActiveService] = useState(null);
     const [pendingService, setPendingService] = useState(null);
 
     const APIURL = process.env.NEXT_PUBLIC_API_URL;
-    const APIKEY = process.env.NEXT_PUBLIC_API_KEY;
 
     useEffect(() => {
-        setActiveService(JSON.stringify(Service))
+
     }, [])
 
-    const requestService = (service)=>{
-        console.log(service)
+    const requestService = async (service, loginToken) => {
+        try {
+            const response = await axios.post(`${APIURL}/api/services`, service, {
+                headers: {
+                    'Authorization': `Bearer ${loginToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            return true;
+        }
+        catch (err) {
+            console.error(`Error getting the active service: ${err}`)
+            return false;
+        }
     }
 
-    const setServiceAsPending = (service)=>{
+    const setServiceAsPending = (service) => {
         setPendingService(service);
     }
 
 
-    const getServices = () => {
-
+    const getAllServices = async (loginToken) => {
+        try {
+            const response = await axios.get(`${APIURL}/api/services`, {
+                headers: {
+                    'Authorization': `Bearer ${loginToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.data;
+        }
+        catch (err) {
+            console.error(`Error getting all services: ${err}`)
+        }
     }
 
-    const getActiveService = () => {
-
+    const getActiveService = async (userId, loginToken) => {
+        try {
+            const userType = Cookies.get('tokenType');
+            const type = userType.slice(0, -1);
+            const response = await axios.get(`${APIURL}/api/services/${type}/${userId}`, {
+                headers: {
+                    'Authorization': `Bearer ${loginToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.data;
+        }
+        catch (err) {
+            console.error(`Error getting the active service: ${err}`)
+        }
     }
 
-    const aceptService = () => {
-
-    }
+    const acceptService = async (serviceId, providerId, loginToken) => {
+        try {
+            const response = await axios.put(`${APIURL}/api/services/${serviceId}`, {status: "Finished", providerId: providerId }, {
+                headers: {
+                    'Authorization': `Bearer ${loginToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.data;
+        } catch (err) {
+            console.error(`Error ${err}`);
+        }
+    };
 
     const markAsOnRoad = () => {
 
     }
 
-    const markAsFinished = () => {
+    const markAsFinished = async (service, loginToken) => {
+        let activeService;
+        try {
+            activeService = JSON.parse(service);
+        } catch (err) {
+            console.error(`Error parsing service: ${err}`);
+            return;
+        }
 
-    }
+        try {
+            const serviceId = activeService.id;
+            activeService.status = "Finished";
+            const response = await axios.put(`${APIURL}/api/services/${serviceId}`, activeService, {
+                headers: {
+                    'Authorization': `Bearer ${loginToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.data;
+        } catch (err) {
+            console.error(`Error ${err}`);
+        }
+    };
 
-    const getHistory = (userId) => {
-        return(serviceList)
+
+    const getHistory = async (userId, loginToken) => {
+        try {
+            const userType = Cookies.get('tokenType');
+            const type = userType.slice(0, -1);
+            const response = await axios.get(`${APIURL}/api/services/${type}/${userId}`, {
+                headers: {
+                    'Authorization': `Bearer ${loginToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.data;
+        }
+        catch (err) {
+            console.error(`Error getting the active service: ${err}`)
+        }
     }
 
     const cancelService = (serviceId) => {
@@ -123,7 +135,7 @@ export const ServiceProvider = ({ children }) => {
     }
 
     return (
-        <ServiceContext.Provider value={{pendingService, setServiceAsPending, requestService, getHistory, activeService, getServices, getActiveService, aceptService, cancelService }}>
+        <ServiceContext.Provider value={{ markAsFinished, setActiveService, pendingService, setServiceAsPending, requestService, getHistory, activeService, getAllServices, getActiveService, acceptService, cancelService }}>
             {children}
         </ServiceContext.Provider>
     );
