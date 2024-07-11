@@ -19,7 +19,6 @@
     background-size: cover;
 }
 
-
 .logo{
     width: 400;
     height: 200;
@@ -36,10 +35,9 @@
   margin: 0;
 }
 
-
 .form{
     background-color: #FFFFFF;
-    width: 450px;
+    width: 50%;
     height: auto;
     display: flex;
     justify-content: center;
@@ -47,7 +45,7 @@
     flex-direction: column;
     border-radius: 20px;
     box-shadow: 0px 0px 10px 2px #00000040;
-    margin-top: -40px;
+    margin-top: -60px;
     padding: 20px;
     gap: 10px;
     margin-bottom: 30px;

@@ -48,7 +48,7 @@
 }
 
 .userData {
-    width: 250px;
+    width: 80%;
     box-shadow: 0px 1px 3px 1px #00000038;
     background-color: #FFFFFF;
     margin-top: 30px;
@@ -244,10 +244,10 @@
     height: 30px;
     border: none;
     border-radius: 5px;
-    background-color: #F47070;
+    background-color: #F6DCDC ;
     box-shadow: 0px 1px 3px 1px #00000038;
     transition: .5s;
-    color: #FFFFFF;
+    color: #000;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -3,7 +3,6 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 3rem ;
     background-color: #f6DCDC;
 }
   
@@ -24,7 +23,7 @@
 .inputBoxHalf {
     margin-bottom: 1rem;
     margin-right: 0.5rem;
-    width: 60%;
+    width: 56%;
 }
 
 .selectBox{

@@ -180,7 +180,8 @@
     }
   
     .inputBox input {
-      width: 80%;
+      width: 90%;
+      height: 30px;
       padding: 0.3rem;
       font-size: 0.8rem;
     }
@@ -188,6 +189,8 @@
     .button {
       padding: 0.3rem 0.5rem;
       font-size: 0.8rem;
+      width: 95%;
+      height: 40px;
     }
   
     .formBox h1 {

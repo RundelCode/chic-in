@@ -1,10 +1,9 @@
 'use client';
-
 import Image from "next/image";
 import styles from "./provider.module.css";
-import Navbar from "../Components/Navbar"; // Asegúrate de que esta ruta sea correcta
+import Navbar from "../Components/Navbar";
 
-const Page = () => {
+const providerList = () => {
   return (
     <div>
       <Navbar />
@@ -57,86 +56,10 @@ const Page = () => {
           <button className={styles.serviceButton}>Aceptar servicio</button>
         </div>
 
-        <div className={styles.serviceCard}>
-          <h3 className={styles.serviceTitle}>Lifting de pestañas</h3>
-          <span className={styles.serviceDistance}>12km</span>
-          <p className={styles.serviceTime}>07/07/2024 - 03:00 PM</p>
-          <p className={styles.serviceDescription}>
-            Me gustaría agendar una cita para un lifting de pestañas ya que tengo un matrimonio el día de mañana.
-          </p>
-          <p className={styles.servicePrice}>$30.000 - Efectivo(COP)</p>
-          <button className={styles.serviceButton}>Aceptar servicio</button>
-        </div>
-
-        <div className={styles.serviceCard}>
-          <h3 className={styles.serviceTitle}>Lifting de pestañas</h3>
-          <span className={styles.serviceDistance}>12km</span>
-          <p className={styles.serviceTime}>07/07/2024 - 03:00 PM</p>
-          <p className={styles.serviceDescription}>
-            Me gustaría agendar una cita para un lifting de pestañas ya que tengo un matrimonio el día de mañana.
-          </p>
-          <p className={styles.servicePrice}>$30.000 - Efectivo(COP)</p>
-          <button className={styles.serviceButton}>Aceptar servicio</button>
-        </div>
-
-        <div className={styles.serviceCard}>
-          <h3 className={styles.serviceTitle}>Lifting de pestañas</h3>
-          <span className={styles.serviceDistance}>12km</span>
-          <p className={styles.serviceTime}>07/07/2024 - 03:00 PM</p>
-          <p className={styles.serviceDescription}>
-            Me gustaría agendar una cita para un lifting de pestañas ya que tengo un matrimonio el día de mañana.
-          </p>
-          <p className={styles.servicePrice}>$30.000 - Efectivo(COP)</p>
-          <button className={styles.serviceButton}>Aceptar servicio</button>
-        </div>
-
-        <div className={styles.serviceCard}>
-          <h3 className={styles.serviceTitle}>Lifting de pestañas</h3>
-          <span className={styles.serviceDistance}>12km</span>
-          <p className={styles.serviceTime}>07/07/2024 - 03:00 PM</p>
-          <p className={styles.serviceDescription}>
-            Me gustaría agendar una cita para un lifting de pestañas ya que tengo un matrimonio el día de mañana.
-          </p>
-          <p className={styles.servicePrice}>$30.000 - Efectivo(COP)</p>
-          <button className={styles.serviceButton}>Aceptar servicio</button>
-        </div>
-
-        <div className={styles.serviceCard}>
-          <h3 className={styles.serviceTitle}>Lifting de pestañas</h3>
-          <span className={styles.serviceDistance}>12km</span>
-          <p className={styles.serviceTime}>07/07/2024 - 03:00 PM</p>
-          <p className={styles.serviceDescription}>
-            Me gustaría agendar una cita para un lifting de pestañas ya que tengo un matrimonio el día de mañana.
-          </p>
-          <p className={styles.servicePrice}>$30.000 - Efectivo(COP)</p>
-          <button className={styles.serviceButton}>Aceptar servicio</button>
-        </div>
-
-        <div className={styles.serviceCard}>
-          <h3 className={styles.serviceTitle}>Lifting de pestañas</h3>
-          <span className={styles.serviceDistance}>12km</span>
-          <p className={styles.serviceTime}>07/07/2024 - 03:00 PM</p>
-          <p className={styles.serviceDescription}>
-            Me gustaría agendar una cita para un lifting de pestañas ya que tengo un matrimonio el día de mañana.
-          </p>
-          <p className={styles.servicePrice}>$30.000 - Efectivo(COP)</p>
-          <button className={styles.serviceButton}>Aceptar servicio</button>
-        </div>
-
-        <div className={styles.serviceCard}>
-          <h3 className={styles.serviceTitle}>Lifting de pestañas</h3>
-          <span className={styles.serviceDistance}>12km</span>
-          <p className={styles.serviceTime}>07/07/2024 - 03:00 PM</p>
-          <p className={styles.serviceDescription}>
-            Me gustaría agendar una cita para un lifting de pestañas ya que tengo un matrimonio el día de mañana.
-          </p>
-          <p className={styles.servicePrice}>$30.000 - Efectivo(COP)</p>
-          <button className={styles.serviceButton}>Aceptar servicio</button>
-        </div>
       </div>
     </div>
   );
 }
 
-export default Page;
+export default providerList;
 
