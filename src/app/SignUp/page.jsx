@@ -164,7 +164,7 @@ const SignUp = () => {
                     </div>
                     <button type="submit" className={styles.button}>Registrarse</button>
                     <div className={styles.registerLink}>
-                        <p>¿Ya tienes una cuenta? <a href="/LogIn">Inicia sesión</a></p>
+                        <p>¿Ya tienes una cuenta? <a href="/Login">Inicia sesión</a></p>
                     </div>
                 </form>
             </div>

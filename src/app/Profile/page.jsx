@@ -29,7 +29,7 @@ const Profile = () => {
         const fetchData = async () => {
             const auth = Cookies.get('token');
             if (!auth) {
-                router.push('/LogIn');
+                router.push('/Login');
             } else {
                 try {
                     const services = await getActiveService(user.id, loginToken);

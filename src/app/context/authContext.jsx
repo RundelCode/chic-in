@@ -95,7 +95,7 @@ export const AuthProvider = ({ children }) => {
         Cookies.remove("token", { path: '/' });
         Cookies.remove("tokenType", { path: '/' });
         Cookies.remove('loginToken', { path: '/' });
-        router.push('/LogIn');
+        router.push('/Login');
     };
 
     const getClient = async (userId, loginToken) => {
