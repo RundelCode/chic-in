@@ -10,7 +10,7 @@ const TypeGuard2 = ({ children }) => {
   useEffect(() => {
     const auth = Cookies.get('tokenType');
     if (auth === 'providers') {
-      router.push('/ProviderProfile');
+      router.push('/providerProfile');
     } else {
       setLoading(false);
     }

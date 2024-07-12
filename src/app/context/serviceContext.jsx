@@ -78,7 +78,7 @@ export const ServiceProvider = ({ children }) => {
                     'Content-Type': 'application/json'
                 }
             });
-            router.push("/ProviderProfile")
+            router.push("/providerProfile")
             
             
         } catch (err) {
@@ -98,7 +98,7 @@ export const ServiceProvider = ({ children }) => {
                     'Content-Type': 'application/json'
                 }
             });
-            router.push("/ProviderProfile")
+            router.push("/providerProfile")
             
         } catch (err) {
             console.error(`Error ${err}`);
