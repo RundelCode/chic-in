@@ -75,7 +75,7 @@ const ProviderProfile = () => {
 
     const finishService = async () => {
         if (activeService) {
-            await markAsFinished(JSON.stringify(activeService), provider.token);
+            await markAsFinished(JSON.stringify(activeService.id), provider.token);
             router.push("/");
         } else {
             console.error('No active service to finish');

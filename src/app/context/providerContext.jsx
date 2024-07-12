@@ -2,6 +2,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const providerContext = createContext();
 
@@ -14,11 +15,13 @@ export const ProviderProvider = ({ children }) => {
     useEffect(() => {
     }, [])
 
-    const getProvider = async (providerId) => {
+    const getProvider = async (providerId, loginToken) => {
         try {
-            const response = await axios.get(`${APIURL}/api/providers:${providerId}`, {
+            const token = Cookies.get("token");
+            const decodedToken = JSON.parse(token)
+            const response = await axios.get(`${APIURL}/api/providers/${providerId}`, {
                 headers: {
-                    'Authorization': `${APIKEY}`,
+                    'Authorization': `Bearer ${decodedToken.token}`,
                     'content-type': `aplication/json`
                 }
             })

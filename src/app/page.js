@@ -21,26 +21,31 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [hasActiveService, setHasActiveService] = useState(false);
 
-  const { requestService, setServiceAsPending, pendingService, getActiveService } = useService();
+  const { requestService, setServiceAsPending, pendingService, getActiveService, setUserId } = useService();
   const { user, loginToken } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     const checkActiveService = async () => {
       if (user) {
-        const activeService = await getActiveService(user.id, loginToken);
-        if (activeService && activeService.length > 0) {
-          setHasActiveService(true);
+        try {
+          const services = await getActiveService(user.id, loginToken);
+          for (let i = 0; i < services.length; i++) {
+            if (services[i].status === "Active") {
+              setActiveService(service[i]);
+            }
+          }
+
+        } catch (error) {
+          console.error('Error getting active service:', error);
         }
       }
     };
-    
     checkActiveService();
 
-
     if (pendingService) {
-      pendingService.id = user.id;
       requestService(pendingService, loginToken);
+      setUserId(pendingService.id)
       setShowModal(true);
     }
   }, [user, loginToken, pendingService, getActiveService, requestService]);
@@ -53,6 +58,7 @@ export default function Home() {
     }
 
     const token = Cookies.get("token");
+    const decodedToken = JSON.parse(token)
     const now = new Date();
     const service = {
       title: serviceType,
@@ -60,8 +66,8 @@ export default function Home() {
       price: parseFloat(price),
       requestDate: now.toISOString(),
       finishDate: dateTime,
-      status: 'Active',
-      clientId: token ? user.id : null,
+      status: 'Pending',
+      clientId: decodedToken.client.id,
       providerId: null,
       city: city,
       category: serviceType

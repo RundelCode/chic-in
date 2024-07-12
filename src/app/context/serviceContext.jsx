@@ -10,6 +10,7 @@ const ServiceContext = createContext();
 export const ServiceProvider = ({ children }) => {
     const [activeService, setActiveService] = useState(null);
     const [pendingService, setPendingService] = useState(null);
+    const router = useRouter();
 
     const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -25,10 +26,9 @@ export const ServiceProvider = ({ children }) => {
                     'Content-Type': 'application/json'
                 }
             });
-            return true;
         }
         catch (err) {
-            console.error(`Error getting the active service: ${err}`)
+            console.error(`Error gUploading the service: ${err}`)
             return false;
         }
     }
@@ -72,41 +72,34 @@ export const ServiceProvider = ({ children }) => {
 
     const acceptService = async (serviceId, providerId, loginToken) => {
         try {
-            const response = await axios.put(`${APIURL}/api/services/${serviceId}`, {status: "Finished", providerId: providerId }, {
+            const response = await axios.put(`${APIURL}/api/services/${serviceId}`, {status: "Active", providerId: providerId }, {
                 headers: {
                     'Authorization': `Bearer ${loginToken}`,
                     'Content-Type': 'application/json'
                 }
             });
-            return response.data;
+            router.push("/ProviderProfile")
+            
+            
         } catch (err) {
             console.error(`Error ${err}`);
         }
     };
 
-    const markAsOnRoad = () => {
+    const markAsOnRoad = (serviceId, loginToken) => {
 
     }
 
-    const markAsFinished = async (service, loginToken) => {
-        let activeService;
+    const markAsFinished = async (serviceId, loginToken) => {
         try {
-            activeService = JSON.parse(service);
-        } catch (err) {
-            console.error(`Error parsing service: ${err}`);
-            return;
-        }
-
-        try {
-            const serviceId = activeService.id;
-            activeService.status = "Finished";
-            const response = await axios.put(`${APIURL}/api/services/${serviceId}`, activeService, {
+            const response = await axios.put(`${APIURL}/api/services/${serviceId}`, {status: "Finished"}, {
                 headers: {
                     'Authorization': `Bearer ${loginToken}`,
                     'Content-Type': 'application/json'
                 }
             });
-            return response.data;
+            router.push("/ProviderProfile")
+            
         } catch (err) {
             console.error(`Error ${err}`);
         }
@@ -130,12 +123,42 @@ export const ServiceProvider = ({ children }) => {
         }
     }
 
-    const cancelService = (serviceId) => {
-        console.log(`El servicio ${serviceId} ha sido cancelado`)
+    const cancelService =  async (serviceId) => {
+        try {
+            const token = Cookies.get("token");
+            const decodedToken = JSON.parse(token)
+            const response = await axios.put(`${APIURL}/api/services/${serviceId}`, {status: "Declined"}, {
+                headers: {
+                    'Authorization': `Bearer ${decodedToken.token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            router.push("/")    
+            
+            
+        } catch (err) {
+            console.error(`Error ${err}`);
+        }
+    }
+
+    const setUserId =  async (serviceId) => {
+        try {
+            const token = Cookies.get("token");
+            const decodedToken = JSON.parse(token)
+            const response = await axios.put(`${APIURL}/api/services/${serviceId}`, {clientId: token.client.id}, {
+                headers: {
+                    'Authorization': `Bearer ${decodedToken.token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            router.push("/")    
+        } catch (err) {
+            console.error(`Error ${err}`);
+        }
     }
 
     return (
-        <ServiceContext.Provider value={{ markAsFinished, setActiveService, pendingService, setServiceAsPending, requestService, getHistory, activeService, getAllServices, getActiveService, acceptService, cancelService }}>
+        <ServiceContext.Provider value={{ setUserId, markAsFinished, setActiveService, pendingService, setServiceAsPending, requestService, getHistory, activeService, getAllServices, getActiveService, acceptService, cancelService }}>
             {children}
         </ServiceContext.Provider>
     );

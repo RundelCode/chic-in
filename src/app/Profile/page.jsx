@@ -33,8 +33,12 @@ const Profile = () => {
             } else {
                 try {
                     const services = await getActiveService(user.id, loginToken);
-                    setActiveService(services.length ? services[0] : null); // Asumiendo que se obtiene un array de servicios
-                    setService(services.length ? services[0] : null);
+                    for (let i = 0; i < services.length; i++) {
+                        if (services[i].status === "Active") {
+                            setService(services[i]);
+                        }
+                    }
+
                 } catch (error) {
                     console.error('Error getting active service:', error);
                     setService(null);
@@ -42,7 +46,13 @@ const Profile = () => {
 
                 try {
                     const historyServices = await getHistory(user.id, loginToken);
-                    setHistory(historyServices || []); // Asegurarse de que history siempre sea un array
+                    const list = []
+                    for (let i = 0; i < historyServices.length; i++) {
+                        if (historyServices[i].status !== "Active") {
+                            list.push(historyServices[i])
+                        }
+                    }
+                    setHistory(list);
                 } catch (error) {
                     console.error('Cant get history:', error);
                     setHistory([]);
@@ -84,7 +94,6 @@ const Profile = () => {
             address,
             phone
         };
-        console.log(updatedUser);
         // editUserData(updatedUser, loginToken);
     };
 
