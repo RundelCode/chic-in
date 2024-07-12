@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }) => {
             setLoginToken(userToken.token);
             Cookies.set('token', JSON.stringify(userToken), { expires: 7, path: '/' });
             Cookies.set('tokenType', role, { expires: 7, path: '/' });
-            router.push('/');
+            router.push('/Login');
         } catch (err) {
             console.error(`Error registering: ${err}`);
         }
