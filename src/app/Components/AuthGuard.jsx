@@ -11,7 +11,7 @@ const AuthGuard = ({ children }) => {
   useEffect(() => {
     const auth = Cookies.get('token');
     if (!auth) {
-      router.push('/LogIn');
+      router.push('/Login');
     } else {
       setLoading(false);
     }
