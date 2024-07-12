@@ -65,7 +65,7 @@ const Profile = () => {
                     setAddress(user.address);
                     setPhone(user.phone);
                 } else {
-                    router.push("/LogIn");
+                    router.push("/Login");
                 }
             }
         };

@@ -20,7 +20,7 @@ const CalendarComponent = () => {
         const fetchData = async () => {
             const token = Cookies.get("token");
             if (!token) {
-                router.push("/LogIn");
+                router.push("/Login");
                 return;
             }
 

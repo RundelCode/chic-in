@@ -27,7 +27,7 @@ const ProviderList = () => {
   useEffect(() => {
     const token = Cookies.get("token");
     if (!token) {
-      router.push("/LogIn");
+      router.push("/Login");
     } else {
       const parsedToken = JSON.parse(token);
       setProvider(parsedToken);

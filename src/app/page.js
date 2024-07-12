@@ -75,7 +75,7 @@ export default function Home() {
 
     if (!token) {
       setServiceAsPending(service);
-      router.push("/LogIn");
+      router.push("/Login");
     } else {
       requestService(service, loginToken);
       setShowModal(true);
