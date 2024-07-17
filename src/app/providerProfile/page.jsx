@@ -9,7 +9,6 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import AuthGuard from '../Components/AuthGuard';
 import CalendarComponent from '../Components/calendar';
-import Calendar from "react-calendar";
 
 const ProviderProfile = () => {
     const [activeService, setActiveService] = useState(null);
@@ -129,9 +128,9 @@ const ProviderProfile = () => {
                     </div>
                     {calendar && (
                         <div className={styles.container}>
-                            <button className={styles.botonCalendar}>Atras</button>
+                            <button onClick={() => setCalendarVisible(false)} className={styles.botonCalendar}>Atras</button>
                             <div className={styles.calendarContainer}>
-                                <CalendarComponent/>
+                                <CalendarComponent />
                             </div>
                         </div>
                     )}
