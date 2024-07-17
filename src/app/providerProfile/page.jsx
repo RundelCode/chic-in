@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import AuthGuard from '../Components/AuthGuard';
 import CalendarComponent from '../Components/calendar';
+import Calendar from "react-calendar";
 
 const ProviderProfile = () => {
     const [activeService, setActiveService] = useState(null);
@@ -127,13 +128,18 @@ const ProviderProfile = () => {
                         </div>
                     </div>
                     {calendar && (
-                        <CalendarComponent />   
+                        <div className={styles.container}>
+                            <div className={styles.calendarContainer}>
+                                <CalendarComponent />
+                                <button >Prueba Calendario</button>
+                            </div>
+                        </div>
                     )}
 
                     <div className={styles.userServices}>
                         <div className={styles.serviceHistory}>
                             <div className={styles.serviceTitle}>
-                                <h2>Historial de servicios</h2>
+                            <h2>Historial de servicios</h2>
                             </div>
                             <div className={styles.serviceIndex}>
                                 <p className={styles.serviceText}>Título</p>
