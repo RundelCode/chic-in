@@ -129,9 +129,9 @@ const ProviderProfile = () => {
                     </div>
                     {calendar && (
                         <div className={styles.container}>
+                            <button className={styles.botonCalendar}>Atras</button>
                             <div className={styles.calendarContainer}>
-                                <CalendarComponent />
-                                <button >Prueba Calendario</button>
+                                <CalendarComponent/>
                             </div>
                         </div>
                     )}
