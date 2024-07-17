@@ -25,3 +25,7 @@ h1 {
     font-family: 'Cremona', sans-serif;
     color: #373536;
 }
+
+button:hover{
+    background-color: #f1a7a7;
+}
