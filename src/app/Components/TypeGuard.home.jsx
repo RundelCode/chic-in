@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import styles from './TypeGuard.home.module.css';
 
 const TypeGuard = ({ children }) => {
   const router = useRouter();
@@ -17,7 +18,11 @@ const TypeGuard = ({ children }) => {
   }, [router]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className={styles.loading}>
+        <div className={styles.loadingSpinner}>
+            Loading...
+        </div>
+    </div>;
   }
 
   return children;
