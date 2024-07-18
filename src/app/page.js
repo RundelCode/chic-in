@@ -258,6 +258,11 @@ export default function Home() {
                         required
                     />
                 </div>
+                <div className={styles.prices}>
+                    <p>Precio del servicio: $ 120.000 (COP)</p>
+                    <p>Precio del domicilio: $ 12.000 (COP)</p>
+                    <p>Total: $132.000 (COP)</p>
+                </div>
                 <div className={styles.formRow}>
                     <button type="submit" className={styles.sendButton}>Solicitar servicio</button>
                 </div>
