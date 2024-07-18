@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import AuthGuard from "../Components/AuthGuard";
+import { format } from 'date-fns';
 
 const ProviderList = () => {
   const { acceptService, getAllServices } = useService();
@@ -38,7 +39,7 @@ const ProviderList = () => {
   const fetchData = async (token) => {
     try {
       const services = await getAllServices(token);
-      const list = services.filter(service => service.status == "Pending");
+      const list = services.filter(service => service.status === "Pending");
       setServiceList(Array.isArray(list) ? list : []);
       setLoading(false);
     } catch (err) {
@@ -58,6 +59,11 @@ const ProviderList = () => {
 
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  // Function to format dates
+  const formatDate = (date) => {
+    return date ? format(new Date(date), 'MMM d, yyyy h:mm a') : '';
   };
 
   if (loading) {
@@ -82,6 +88,7 @@ const ProviderList = () => {
           />
           <h1 className={styles.title}>Lista De Servicios</h1>
         </div>
+        {/*
         <div className={styles.filterContainer}>
           <div className={styles.filterGroup}>
             <label className={styles.filterLabel}>Ordenar por</label>
@@ -108,12 +115,15 @@ const ProviderList = () => {
             </select>
           </div>
         </div>
+        */}
+
         <div className={styles.servicesContainer}>
           {serviceList.length > 0 ? (
             serviceList.map(service => (
               <div key={service.id} className={styles.serviceCard}>
                 <h3 className={styles.serviceTitle}>{service.title}</h3>
-                <p className={styles.serviceTime}>{new Date(service.requestDate).toLocaleDateString()} - {new Date(service.requestDate).toLocaleTimeString()}</p>
+                <p className={styles.serviceDescription}>{service.city}</p>
+                <p className={styles.serviceTime}>{formatDate(service.finishDate)}</p>
                 <p className={styles.serviceDescription}>{service.description}</p>
                 <p className={styles.servicePrice}>${service.price} - Efectivo(COP)</p>
                 <button

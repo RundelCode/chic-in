@@ -273,9 +273,9 @@
     height: 5%;
     width: 24%;
     background-color: #f6DCDC;
-    box-shadow: 0 1px 10px 1px rgb(255, 205, 205);
-    border-radius: 15px;
+    border-radius: 10px;
     border: 2px solid #dccaca;
+    cursor: pointer;
 }
 
 /* Media query contiene el  boton del calendario */

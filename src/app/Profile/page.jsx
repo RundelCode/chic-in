@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useEffect, useState } from 'react';
 import styles from './profile.module.css';
 import Navbar from '../Components/Navbar';
@@ -10,6 +10,7 @@ import { useProvider } from '../context/providerContext';
 import Cookies from 'js-cookie';
 import AuthGuard from '../Components/AuthGuard';
 import TypeGuard2 from '../Components/TypeGuard2';
+import { format } from 'date-fns';
 
 const Profile = () => {
     const { logout, user, editUserData, loginToken } = useAuth();
@@ -101,6 +102,11 @@ const Profile = () => {
         cancelService(service.id);
     };
 
+    // Format dates with time
+    const formatDate = (date) => {
+        return date ? format(new Date(date), 'MMM d, yyyy h:mm a') : '';
+    };
+
     return (
         <AuthGuard>
             <TypeGuard2>
@@ -154,8 +160,8 @@ const Profile = () => {
                                     <div className={styles.serviceInfo}>
                                         <p className={styles.serviceInfoText}>{service.title}</p>
                                         <p className={styles.serviceInfoText}>{service.price}</p>
-                                        <p className={styles.serviceInfoText}>{service.requestDate}</p>
-                                        <p className={styles.serviceInfoText}>{service.finishDate}</p>
+                                        <p className={styles.serviceInfoText}>{formatDate(service.requestDate)}</p>
+                                        <p className={styles.serviceInfoText}>{formatDate(service.finishDate)}</p>
                                         <div className={styles.serviceInfoText}>
                                             <button onClick={cancelActiveService} className={styles.cancelButton}>Cancelar</button>
                                         </div>
@@ -180,8 +186,8 @@ const Profile = () => {
                                         <div key={index} className={styles.serviceInfo}>
                                             <p className={styles.serviceInfoText}>{item.title}</p>
                                             <p className={styles.serviceInfoText}>${item.price} COP</p>
-                                            <p className={styles.serviceInfoText}>{item.requestDate}</p>
-                                            <p className={styles.serviceInfoText}>{item.finishDate}</p>
+                                            <p className={styles.serviceInfoText}>{formatDate(item.requestDate)}</p>
+                                            <p className={styles.serviceInfoText}>{formatDate(item.finishDate)}</p>
                                             <div className={styles.serviceInfoText}>
                                                 <div className={styles.serviceState}>{item.status}</div>
                                             </div>

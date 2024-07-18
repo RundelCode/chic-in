@@ -134,8 +134,6 @@ export const ServiceProvider = ({ children }) => {
                 }
             });
             router.push("/")    
-            
-            
         } catch (err) {
             console.error(`Error ${err}`);
         }

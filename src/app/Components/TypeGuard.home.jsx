@@ -19,8 +19,9 @@ const TypeGuard = ({ children }) => {
 
   if (loading) {
     return <div className={styles.loading}>
+      Loading...
         <div className={styles.loadingSpinner}>
-            Loading...
+            
         </div>
     </div>;
   }

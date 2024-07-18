@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useEffect, useState } from 'react';
 import styles from './providerProfile.module.css';
 import Navbar from '../Components/Navbar';
@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import AuthGuard from '../Components/AuthGuard';
 import CalendarComponent from '../Components/calendar';
+import { format } from 'date-fns';
 
 const ProviderProfile = () => {
     const [activeService, setActiveService] = useState(null);
@@ -19,7 +20,7 @@ const ProviderProfile = () => {
     const [calendar, setCalendarVisible] = useState(false);
 
     const { user, logout, loginToken, getClient } = useAuth();
-    const { getActiveService, getHistory, markAsFinished } = useService();
+    const { getActiveService, getHistory, markAsFinished, cancelService } = useService();
 
     useEffect(() => {
         const token = Cookies.get("token");
@@ -82,6 +83,17 @@ const ProviderProfile = () => {
         }
     }
 
+    const handleCancel = () => {
+        if (activeService) {
+            cancelService(activeService.id);
+        }
+    }
+
+    // Function to format dates with time
+    const formatDate = (date) => {
+        return date ? format(new Date(date), 'MMM d, yyyy h:mm a') : '';
+    };
+
     return (
         <AuthGuard>
             <div className={styles.main}>
@@ -97,9 +109,9 @@ const ProviderProfile = () => {
                             {activeService ? (
                                 <div className={styles.innerData}>
                                     <h2 className={styles.activeServiceTitle}>{activeService.title}</h2>
-                                    <p><strong>Tipo de servicio:</strong> {activeService.category}</p>
-                                    <p><strong>Fecha de la solicitud:</strong> {activeService.requestDate}</p>
-                                    <p><strong>Fecha de realización:</strong> {activeService.finishDate}</p>
+                                    <p><strong>Servicios: </strong> {activeService.category}</p>
+                                    <p><strong>Fecha de la solicitud:</strong> {formatDate(activeService.requestDate)}</p>
+                                    <p><strong>Fecha de realización:</strong> {formatDate(activeService.finishDate)}</p>
                                     {client && (
                                         <>
                                             <p><strong>Nombre del cliente:</strong> {client.name}</p>
@@ -114,7 +126,7 @@ const ProviderProfile = () => {
                                     </div>
                                     <div className={styles.buttonSection}>
                                         <button onClick={clientContact} className={styles.contactClient}>Contactar cliente</button>
-                                        <button className={styles.cancelService}>Cancelar servicio</button>
+                                        <button onClick={handleCancel} className={styles.cancelService}>Cancelar servicio</button>
                                     </div>
                                 </div>
                             ) : (
@@ -135,11 +147,11 @@ const ProviderProfile = () => {
                         </div>
                     )}
 
-                    {/*Funcionalidad para boton de cerrar calendario*/}
+                    {/* Funcionalidad para boton de cerrar calendario */}
                     <div className={styles.userServices}>
                         <div className={styles.serviceHistory}>
                             <div className={styles.serviceTitle}>
-                            <h2>Historial de servicios</h2>
+                                <h2>Historial de servicios</h2>
                             </div>
                             <div className={styles.serviceIndex}>
                                 <p className={styles.serviceText}>Título</p>
@@ -153,8 +165,8 @@ const ProviderProfile = () => {
                                     <div key={index} className={styles.serviceInfo}>
                                         <p className={styles.serviceInfoText}>{item.title}</p>
                                         <p className={styles.serviceInfoText}>${item.price} COP</p>
-                                        <p className={styles.serviceInfoText}>{item.requestDate}</p>
-                                        <p className={styles.serviceInfoText}>{item.finishDate}</p>
+                                        <p className={styles.serviceInfoText}>{formatDate(item.requestDate)}</p>
+                                        <p className={styles.serviceInfoText}>{formatDate(item.finishDate)}</p>
                                         <div className={styles.serviceInfoText}>
                                             <div className={styles.serviceState}>{item.status}</div>
                                         </div>
