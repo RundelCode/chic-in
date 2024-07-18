@@ -135,6 +135,7 @@ const ProviderProfile = () => {
                         </div>
                     )}
 
+                    {/*Funcionalidad para boton de cerrar calendario*/}
                     <div className={styles.userServices}>
                         <div className={styles.serviceHistory}>
                             <div className={styles.serviceTitle}>
