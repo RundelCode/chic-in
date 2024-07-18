@@ -22,6 +22,23 @@ export default function Home() {
   const [hasActiveService, setHasActiveService] = useState(false);
   const [selectedRole, setSelectedRole] = useState('clients');
 
+    // Estados y funciones para los contadores
+  const [manicureCount, setManicureCount] = useState(0);
+  const [pedicureCount, setPedicureCount] = useState(0);
+  const [handsFeetCount, setHandsFeetCount] = useState(0);
+
+  const handleIncrement = (type) => {
+    if (type === 'manicure') setManicureCount(manicureCount + 1);
+    if (type === 'pedicure') setPedicureCount(pedicureCount + 1);
+    if (type === 'handsFeet') setHandsFeetCount(handsFeetCount + 1);
+  };
+
+  const handleDecrement = (type) => {
+    if (type === 'manicure' && manicureCount > 0) setManicureCount(manicureCount - 1);
+    if (type === 'pedicure' && pedicureCount > 0) setPedicureCount(pedicureCount - 1);
+    if (type === 'handsFeet' && handsFeetCount > 0) setHandsFeetCount(handsFeetCount - 1);
+  };
+
   const { requestService, setServiceAsPending, pendingService, getActiveService, setUserId } = useService();
   const { user, loginToken } = useAuth();
   const router = useRouter();
@@ -89,7 +106,7 @@ export default function Home() {
         <Navbar />
         <div className={styles.topSection}>
           <Image className={styles.logo} src='/images/LogoChicIn.png' alt="Chic In" width={500} height={200} />
-          <h1 className={styles.title}>Solicitar un servicio</h1>
+          <h1 className={styles.title}>Uñas a domicilio</h1>
         </div>
         {hasActiveService ? (
           <div className={styles.alert}>
@@ -98,8 +115,38 @@ export default function Home() {
           </div>
         ) : (
             <form id="serviceForm" className={styles.form} onSubmit={handleSubmit}>
-                <div className={styles.formRow}>
-                    <div className={styles.formInputContainer}>
+                <div className={styles.formRow2}>
+                    <div className={styles.formInputContainer3}>
+                        <p>Manicure</p>
+                        <div className={styles.counterContainer}>
+                            <button onClick={() => handleDecrement('manicure')} className={styles.counterButton}>-
+                            </button>
+                            <span>{manicureCount}</span>
+                            <button onClick={() => handleIncrement('manicure')} className={styles.counterButton}>+
+                            </button>
+                        </div>
+                    </div>
+                    <div className={styles.formInputContainer3}>
+                        <p>Pedicure</p>
+                        <div className={styles.counterContainer}>
+                            <button onClick={() => handleDecrement('pedicure')} className={styles.counterButton}>-
+                            </button>
+                            <span>{pedicureCount}</span>
+                            <button onClick={() => handleIncrement('pedicure')} className={styles.counterButton}>+
+                            </button>
+                        </div>
+                    </div>
+                    <div className={styles.formInputContainer3}>
+                        <p>Manos y pies</p>
+                        <div className={styles.counterContainer}>
+                            <button onClick={() => handleDecrement('handsFeet')} className={styles.counterButton}>-
+                            </button>
+                            <span>{handsFeetCount}</span>
+                            <button onClick={() => handleIncrement('handsFeet')} className={styles.counterButton}>+
+                            </button>
+                        </div>
+                    </div>
+                    {/*<div className={styles.formInputContainer}>
                         <p>¿Qué servicio estás buscando?</p>
                         <select
                             id="serviceType"
@@ -126,22 +173,10 @@ export default function Home() {
                             <option value="Lifting de pestañas">Lifting de pestañas</option>
                             <option value="Uñas">Uñas</option>
                         </select>
-                    </div>
-                </div>
-                <div className={styles.roleSwitch}>
-                    <button
-                        className={`${styles.roleButton} ${selectedRole === 'clients' ? styles.selected : ''}`}
-                        onClick={() => setSelectedRole('clients')}>
-                        Manos
-                    </button>
-                    <button
-                        className={`${styles.roleButton} ${selectedRole === 'providers' ? styles.selected : ''}`}
-                        onClick={() => setSelectedRole('providers')}>
-                        Pies
-                    </button>
+                    </div>*/}
                 </div>
                 <div className={styles.formRow}>
-                    <div className={styles.formInputContainer}>
+                    {/*<div className={styles.formInputContainer}>
                         <p>Precio (Tentativo)</p>
                         <input
                             id="price"
@@ -152,8 +187,8 @@ export default function Home() {
                             placeholder="$(COP)"
                             required
                         />
-                    </div>
-                    <div className={styles.formInputContainer}>
+                    </div>*/}
+                    {/*<div className={styles.formInputContainer}>
                         <p>Medio de pago</p>
                         <select className={styles.selectBox} required>
                             <option value="">Selecciona una opción</option>
@@ -161,6 +196,16 @@ export default function Home() {
                             <option value="Tarjeta de crédito">Tarjeta de crédito</option>
                             <option value="Tarjeta de débito">Tarjeta de débito</option>
                             <option value="Paypal">Paypal</option>
+                        </select>
+                    </div>*/}
+                    <div className={styles.formInputContainer2}>
+                        <p>Tecnica</p>
+                        <select className={styles.selectBox} required>
+                            <option value="">Que tecnica deseas?</option>
+                            <option value="Efectivo">Tecnica 1</option>
+                            <option value="Tarjeta de crédito">Tecnica 2</option>
+                            <option value="Tarjeta de débito">Tecnica 3</option>
+                            <option value="Paypal">Tecnica 4</option>
                         </select>
                     </div>
                 </div>
@@ -190,7 +235,7 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/*<div className={styles.longFormRow}>
+                <div className={styles.longFormRow}>
               <p>Dirección</p>
               <input
                 type="text"
@@ -200,13 +245,13 @@ export default function Home() {
                 onChange={(e) => setAddress(e.target.value)}
                 required
               />
-            </div>*/}
+            </div>
 
                 <div className={styles.longFormRow}>
                     <p>Comentarios</p>
                     <input
                         type="text"
-                        className={styles.formInput}
+                        className={styles.formInput2}
                         placeholder="Cuéntanos los detalles de tu servicio"
                         value={comments}
                         onChange={(e) => setComments(e.target.value)}

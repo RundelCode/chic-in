@@ -246,7 +246,9 @@
     border-radius: 5px;
 }
 
-.container{
+/* Estilos boton ATRAS */
+
+.container {
     position: fixed;
     display: flex;
     justify-content: center;
@@ -258,17 +260,16 @@
     background-color: #ffffff26;
     backdrop-filter: blur(10px);
 }
+
 .calendarContainer {
     display: flex;
     justify-content: center;
     box-shadow: 0px 1px 10px 1px #0000004f;
 }
 
-
-/* Tamayo: añadi estilos al boton, falta funcionalidad */
-.botonCalendar{
+.botonCalendar {
     position: absolute;
-    margin-top: 25%;
+    top: 73%;
     height: 5%;
     width: 24%;
     background-color: #f6DCDC;
@@ -276,6 +277,16 @@
     border-radius: 15px;
     border: 2px solid #dccaca;
 }
+
+/* Media query contiene el  boton del calendario */
+@media (max-width: 768px) {
+    .botonCalendar {
+        top: 80%;
+        width: 50%;
+    }
+}
+
+/*Finalizacion estructura del boton*/
 
 .editData {
     background-color: #F6DCDC;

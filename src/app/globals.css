@@ -26,6 +26,11 @@ h1 {
     color: #373536;
 }
 
+span {
+    margin: 0 10px;
+    font-size: 1.2rem;
+}
+
 button:hover{
     background-color: #f1a7a7;
 }
