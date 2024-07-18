@@ -224,6 +224,17 @@
     color: white;
 }
 
+.prices {
+    text-align: left;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.prices p {
+    margin: 5px 0;
+}
+
+
 .sendButton{
     width: 100%;
     height: 40px;
