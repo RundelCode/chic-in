@@ -10,10 +10,13 @@ const Login = () => {
     const { login } = useAuth();
     const router = useRouter();
     const [selectedRole, setSelectedRole] = useState('clients');
-    const [error, setError] = useState('');
+    const [error, setError] = useState(false);
+    const [charging, setCharging] = useState(false)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setError(false);
+        setCharging(true);
         const form = event.target;
         const email = form.emailInput.value;
         const password = form.passwordInput.value;
@@ -26,11 +29,10 @@ const Login = () => {
             const response = await login(user, selectedRole);
             if (response.success) {
                 router.push('/Profile');
-            } else {
-                setError(response.message || 'Error desconocido al iniciar sesión');
             }
         } catch (err) {
-            setError('Error al iniciar sesión. Por favor, inténtelo de nuevo.');
+            setCharging(false);
+            setError(true);
         }
     };
 
@@ -63,7 +65,8 @@ const Login = () => {
                         <input id='passwordInput' name='passwordInput' type="password" placeholder="Contraseña" required />
                     </div>
                     <button type="submit" className={styles.button}>Iniciar sesión</button>
-                    {error && <p className={styles.error}>{error}</p>}
+                    {error && <p className={styles.error}>Error al iniciar sesión. Por favor, inténtelo de nuevo.</p>}
+                    {charging && <p className={styles.error}>Cargando...</p>}
                     <div className={styles.registerLink}>
                         <p>¿Aún no tienes una cuenta? <Link href="/SignUp">Regístrate</Link></p>
                     </div>

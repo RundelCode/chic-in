@@ -1,32 +1,21 @@
 .main {
-    font-family: 'Crimson', sans-serif;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
+  font-family: 'Crimson', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: url("/images/Nails.jpg");
+  min-height: 100vh;
 }
 
-.topSection{
-    width: 100%;
-    height: 60vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-image: url("../../public/images/Background.png");
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: cover;
+.logo {
+  width: 200px;
+  height: auto;
 }
 
-.logo{
-    width: 400px;
-    height: 200px;
-}
-
-.title{
-    margin-top: -40px;
-    font-size: 24px;
+.title {
+  font-size: 24px;
+  margin-top: -30px;
 }
 
 .noArrows::-webkit-outer-spin-button,
@@ -35,261 +24,386 @@
   margin: 0;
 }
 
-.form{
-    background-color: #FFFFFF;
-    width: 50%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 20px;
-    box-shadow: 0 0 10px 2px #00000040;
-    margin-top: -60px;
-    padding: 20px;
-    gap: 10px;
-    margin-bottom: 30px;
+.form {
+  background-color: #ffffff50;
+  backdrop-filter: blur(10px);
+  width: 800px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 0 3 10px 2px #00000040;
+  padding: 20px;
+  gap: 5px;
+  margin-top: 12vh;
+  margin-bottom: 2vh;
 }
 
-.formRow{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
+.formRow {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
 }
 
 .formRow2 {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    margin: 10px;
-    gap: 15px;
-    flex-wrap: nowrap;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 10px;
+  gap: 15px;
+  flex-wrap: nowrap;
+}
+
+
+.addNewService {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.addNewServiceButton {
+  width: 40%;
+  height: 40px;
+  margin-top: 10px;
+  background-color: #F6DCDC;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 2px 1px #00000040;
+  transition: .5s;
+}
+
+.addNewServiceButton:hover {
+  cursor: pointer;
+  background-color: #ffeded;
+  transition: .5s;
+}
+
+.addServiceModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background-color: #ffffff5d;
+  backdrop-filter: blur(5px);
+  gap: 20px;
+}
+
+.addServiceForm {
+  background-color: #FFFFFF;
+  width: 300px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 10px 1px #00000016;
+  gap: 10px;
+}
+
+.addedServices{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.addedService{
+  width: 150px;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 0px 3px 10px 1px #00000016;
+}
+
+.addServiceinputContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 5px;
+
+}
+
+.addServiceInput {
+  width: 100%;
+  height: 30px;
+}
+
+.addServiceButtom {
+  width: 100%;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  transition: .5s;
+  cursor: pointer;
+  box-shadow: 0px 3px 10px 1px #00000016;
+  background-color: #f6DCDC;
+}
+
+.cancelAddServiceButton {
+  width: 300px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  transition: .5s;
+  cursor: pointer;
+  background-color: #dd5c5c;
+  color: #FFFFFF;
+  box-shadow: 0px 3px 10px 1px #00000016;
 }
 
 @media (max-width: 1100px) {
-    .formRow2 {
-        flex-wrap: wrap;
-    }
-    .formRow2 .formInputContainer3 {
-        flex-basis: calc(50% - 20px);
-    }
+  .formRow2 {
+    flex-wrap: wrap;
+  }
+
+  .formRow2 .formInputContainer3 {
+    flex-basis: calc(50% - 20px);
+  }
 }
 
 @media (max-width: 480px) {
-    .formRow2 {
-        flex-wrap: wrap;
-        flex-direction: column;
-    }
-    .formRow2 .formInputContainer3 {
-        flex-basis: calc(100% - 20px);
-    }
+  .formRow2 {
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
 
-    .counterContainer {
-        gap: 15px;
-        height: auto;
-    }
+  .formRow2 .formInputContainer3 {
+    flex-basis: calc(100% - 20px);
+  }
 
-    .counterButton {
-        width: 30px;
-        height: 30px;
-    }
+  .counterContainer {
+    gap: 15px;
+    height: auto;
+  }
+
+  .counterButton {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 .container {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  flex-wrap: wrap;
 }
 
 .formInputContainer3 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px;
-    flex-basis: calc(33.3333% - 20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  flex-basis: calc(33.3333% - 20px);
 }
 
 .counterContainer {
-    display: flex;
-    align-items: center;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    gap: 30px;
-    height: 50px;
-    box-shadow: 0 10px 20px -10px #00000080;
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  gap: 30px;
+  height: 50px;
+  padding: 5px 10px 5px 10px;
+  box-shadow: 0 10px 20px -10px #00000080;
 }
 
 .counterButton {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .counterButton:active {
-    background-color: #555;
+  background-color: #555;
 }
 
 
-.longFormRow{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
+.longFormRow {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
-.formInputContainer{
-    width: 47%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 5px;
+.formInputContainer {
+  width: 47%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.formInputContainer2{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 5px;
-    align-items: flex-start;
+.formInputContainer2 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
 }
 
-.formInput, .selectBox{
-    width: 100%;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background-color: #F4F4F4;
-    box-shadow: 0 1px 2px 1px #00000040;
-    text-indent: 10px;
+.formInput,
+.selectBox {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background-color: #F4F4F4;
+  box-shadow: 0 1px 2px 1px #00000040;
+  text-indent: 10px;
 }
 
 .formInput2 {
-    width: 100%;
-    height: 90px;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-    background-color: #F4F4F4;
-    box-shadow: 0 1px 2px 1px #00000040;
-    text-indent: 10px;
+  width: 100%;
+  height: 90px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  background-color: #F4F4F4;
+  box-shadow: 0 1px 2px 1px #00000040;
+  text-indent: 10px;
 }
 
-.formInput::placeholder{
-    color: #00000040;
-    margin-left: 5px;
+.formInput::placeholder {
+  color: #00000040;
+  margin-left: 5px;
 }
-.formInput:focus, .selectBox:focus{
-    outline: none;
+
+.formInput:focus,
+.selectBox:focus {
+  outline: none;
 }
 
 .roleSwitch {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0.5rem;
-    gap: 10px;
-    width: 80%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  gap: 10px;
+  width: 80%;
 }
 
 .roleButton {
-    flex: 1;
-    padding: 0.75rem;
-    border-radius: 10px;
-    border: none;
-    background-color: #f0f0f0;
-    cursor: pointer;
-    font-size: 1rem;
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
 .roleButton:hover {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }
 
 .selected {
-    background-color: #f6DCDC;
-    color: white;
+  background-color: #f6DCDC;
+  color: white;
 }
 
 .prices {
-    text-align: left;
-    width: 100%;
-    padding: 10px 0;
+  text-align: left;
+  width: 100%;
+  padding: 10px 0;
 }
 
 .prices p {
-    margin: 5px 0;
+  margin: 5px 0;
 }
 
 
-.sendButton{
-    width: 100%;
-    height: 40px;
-    margin-top: 10px;
-    background-color: #F6DCDC;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 2px 2px 1px #00000040;
-    transition: .5s;
+.sendButton {
+  width: 100%;
+  height: 40px;
+  margin-top: 10px;
+  background-color: #F6DCDC;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 2px 1px #00000040;
+  transition: .5s;
 }
 
-.sendButton:hover{
-    cursor: pointer;
-    background-color: #ffeded;
-    transition: .5s;
+.sendButton:hover {
+  cursor: pointer;
+  background-color: #ffeded;
+  transition: .5s;
 }
 
-.sendButton:active{
-    background-color: #F6DCDC;
-    box-shadow: 0 1px 0 1px #00000040;
+.sendButton:active {
+  background-color: #F6DCDC;
+  box-shadow: 0 1px 0 1px #00000040;
 }
 
-.confirmation{
-    background-color: #ffffff5d;
-    backdrop-filter: blur(5px);
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+.confirmation {
+  background-color: #ffffff5d;
+  backdrop-filter: blur(5px);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
-.ConfirmationModal{
-    width: 300px;
-    height: 150px;
-    background-color: #FFFFFF;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 20px;
-    box-shadow: 0 2px 1px 2px #0000001e;
+.ConfirmationModal {
+  width: 300px;
+  height: 150px;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 0 2px 1px 2px #0000001e;
 }
 
-.confirmationText{
-    font-size: 24px;
+.confirmationText {
+  font-size: 24px;
 }
 
-.serviceListLink{
-    color: #000000;
+.serviceListLink {
+  color: #000000;
 }
 
-.alert{
+.alert {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -298,11 +412,11 @@
   margin-top: 40px;
 }
 
-.alert p{
+.alert p {
   font-size: 24px;
 }
 
-.alert .profileLink{
+.alert .profileLink {
   font-size: 24px;
   background-color: #F6DCDC;
   border-radius: 5px;
@@ -312,116 +426,119 @@
 }
 
 @media (max-width: 1200px) {
-    .form {
-      width: 400px;
-    }
-  
-    .logo {
-      width: 350px;
-      height: 175px;
-    }
+  .form {
+    width: 800px;
+  }
+
+  .logo {
+    width: 350px;
+    height: 175px;
+  }
 }
-  
+
 @media (max-width: 992px) {
-    .form {
-      width: 350px;
-    }
-  
-    .formInputContainer {
-      width: 100%;
-    }
-  
-    .formRow {
-      flex-direction: column;
-    }
-  
-    .formInput, .selectBox {
-      width: 100%;
-    }
-  
-    .formRow, .longFormRow {
-      margin-bottom: 10px;
-    }
+  .form {
+    width: 700px;
+  }
+
+  .formInputContainer {
+    width: 100%;
+  }
+
+  .formRow {
+    flex-direction: column;
+  }
+
+  .formInput,
+  .selectBox {
+    width: 100%;
+  }
+
+  .formRow,
+  .longFormRow {
+    margin-bottom: 10px;
+  }
 }
-  
+
 @media (max-width: 768px) {
-    .topSection {
-      height: 50vh;
-    }
-  
-    .logo {
-      width: 300px;
-      height: 150px;
-    }
-  
-    .form {
-      width: 300px;
-      padding: 15px;
-    }
-  
-    .title {
-      font-size: 20px;
-      margin-top: -30px;
-    }
-  
-    .formInput, .selectBox {
-      height: 35px;
-    }
-  
-    .sendButton {
-      height: 35px;
-      font-size: 14px;
-    }
+  .topSection {
+    height: 50vh;
+  }
+
+  .logo {
+    width: 300px;
+    height: 150px;
+  }
+
+  .form {
+    width: 300px;
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 20px;
+    margin-top: -30px;
+  }
+
+  .formInput,
+  .selectBox {
+    height: 35px;
+  }
+
+  .sendButton {
+    height: 35px;
+    font-size: 14px;
+  }
 }
-  
+
 @media (max-width: 576px) {
-    .topSection {
-      height: 40vh;
-    }
-  
-    .logo {
-      width: 250px;
-      height: 125px;
-    }
-  
-    .form {
-      width: 90%;
-      padding: 10px;
-    }
-  
-    .title {
-      font-size: 18px;
-      margin-top: -20px;
-    }
-  
-    .formInput, .selectBox {
-      font-size: 14px;
-      height: 30px;
-    }
-  
-    .sendButton {
-      height: 30px;
-      font-size: 12px;
-    }
-  
-    .confirmation {
-      padding: 20px;
-    }
-  
-    .ConfirmationModal {
-      width: 80%;
-      height: auto;
-      padding: 15px;
-    }
-  
-    .confirmationText {
-      font-size: 20px;
-      text-align: center;
-    }
-  
-    .serviceListLink {
-      font-size: 16px;
-      text-align: center;
-    }
+  .topSection {
+    height: 40vh;
+  }
+
+  .logo {
+    width: 250px;
+    height: 125px;
+  }
+
+  .form {
+    width: 500px;
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 18px;
+    margin-top: -20px;
+  }
+
+  .formInput,
+  .selectBox {
+    font-size: 14px;
+    height: 30px;
+  }
+
+  .sendButton {
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .confirmation {
+    padding: 20px;
+  }
+
+  .ConfirmationModal {
+    width: 80%;
+    height: auto;
+    padding: 15px;
+  }
+
+  .confirmationText {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .serviceListLink {
+    font-size: 16px;
+    text-align: center;
+  }
 }
-  

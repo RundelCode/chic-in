@@ -11,20 +11,6 @@ import Cookies from "js-cookie";
 import TypeGuard from "./Components/TypeGuard.home";
 import { format } from 'date-fns';
 
-const PRICES = {
-  manicure: 15000,
-  pedicure: 20000,
-  handsAndFeets: 35000,
-  colorChange: 10000,
-  semiPermanentManicure: 50000,
-  semiPermanentPedicure: 40000,
-  semiPermanentHandsAndFeets: 90000,
-  softGelExtensions: 70000,
-  softGelExtensionsHandsAndFeets: 140000,
-  acrylicBath: 60000,
-  acrylicBathHandsAndFeets: 120000,
-};
-
 export default function Home() {
   const [phone, setPhone] = useState("");
   const [serviceType, setServiceType] = useState("");
@@ -36,49 +22,19 @@ export default function Home() {
   const [comments, setComments] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [hasActiveService, setHasActiveService] = useState(false);
-
-  const [manicureCount, setManicureCount] = useState(0);
-  const [pedicureCount, setPedicureCount] = useState(0);
-  const [handsFeetCount, setHandsFeetCount] = useState(0);
+  const [addService, setAddService] = useState(false)
+  const [serviceList, setServiceList] = useState([])
+  const [temporalServiceType, setTemporalServiceType] = useState("Manicure")
+  const [temporalServiceTechnique, setTemporalServiceTechnique] = useState("Tradicional")
 
   const updatePrice = () => {
     const DELIVERY_FEE = 20000;
-    if (serviceType == "Tradicional") {
-      const newPrice = (manicureCount * PRICES.manicure) + (pedicureCount * PRICES.pedicure) + (handsFeetCount * PRICES.handsAndFeets);
-      setPrice(newPrice);
-      setTotalPrice(newPrice + DELIVERY_FEE);
+    let total = 0;
+    for(let i=0; i<serviceList.length; i++){
+      total = total + serviceList[i].price;
     }
-    else if(serviceType == "Semipermanente"){
-      const newPrice = (manicureCount * PRICES.semiPermanentManicure) + (pedicureCount * PRICES.semiPermanentPedicure) + (handsFeetCount * PRICES.semiPermanentHandsAndFeets);
-      setPrice(newPrice);
-      setTotalPrice(newPrice + DELIVERY_FEE);
-    }
-    else if(serviceType == "Gel"){
-      const newPrice = (manicureCount * PRICES.softGelExtensions) + (pedicureCount * PRICES.softGelExtensions) + (handsFeetCount * PRICES.softGelExtensionsHandsAndFeets);
-      setPrice(newPrice);
-      setTotalPrice(newPrice + DELIVERY_FEE);
-    }
-    else if(serviceType == "Acrilico"){
-      const newPrice = (manicureCount * PRICES.acrylicBath) + (pedicureCount * PRICES.acrylicBath) + (handsFeetCount * PRICES.acrylicBathHandsAndFeets);
-      setPrice(newPrice);
-      setTotalPrice(newPrice + DELIVERY_FEE);
-    }
-  };
-
-  useEffect(() => {
-    updatePrice();
-  }, [manicureCount, pedicureCount, handsFeetCount, serviceType]);
-
-  const handleIncrement = (type) => {
-    if (type === 'manicure') setManicureCount(manicureCount + 1);
-    if (type === 'pedicure') setPedicureCount(pedicureCount + 1);
-    if (type === 'handsFeet') setHandsFeetCount(handsFeetCount + 1);
-  };
-
-  const handleDecrement = (type) => {
-    if (type === 'manicure' && manicureCount > 0) setManicureCount(manicureCount - 1);
-    if (type === 'pedicure' && pedicureCount > 0) setPedicureCount(pedicureCount - 1);
-    if (type === 'handsFeet' && handsFeetCount > 0) setHandsFeetCount(handsFeetCount - 1);
+    setPrice(total);
+    setTotalPrice(total + DELIVERY_FEE);
   };
 
   const { requestService, setServiceAsPending, pendingService, getActiveService, setUserId } = useService();
@@ -152,20 +108,66 @@ export default function Home() {
         city: city,
         category: `Manicure: ${manicureCount}, Pedicure: ${pedicureCount}, Manos y pies: ${handsFeetCount}`
       };
-      console.log(service);
       requestService(service, loginToken);
       setShowModal(true);
     }
   };
 
+  const handleSetPrice = () => {
+    if (temporalServiceType === "Manicure") {
+      if (temporalServiceTechnique === "Tradicional") {
+        return 15000;
+      } else if (temporalServiceTechnique === "Semipermanente") {
+        return 50000;
+      } else if (temporalServiceTechnique === "Gel") {
+        return 70000;
+      } else if (temporalServiceTechnique === "Acrilico") {
+        return 60000;
+      }
+    } else if (temporalServiceType === "Pedicure") {
+      if (temporalServiceTechnique === "Tradicional") {
+        return 20000;
+      } else if (temporalServiceTechnique === "Semipermanente") {
+        return 40000;
+      } else if (temporalServiceTechnique === "Gel") {
+        return 70000;
+      } else if (temporalServiceTechnique === "Acrilico") {
+        return 60000;
+      }
+    } else if (temporalServiceType === "Manos y Pies") {
+      if (temporalServiceTechnique === "Tradicional") {
+        return 35000;
+      } else if (temporalServiceTechnique === "Semipermanente") {
+        return 90000;
+      } else if (temporalServiceTechnique === "Gel") {
+        return 140000;
+      } else if (temporalServiceTechnique === "Acrilico") {
+        return 120000;
+      }
+    }
+  };
+  
+  const addNewService = (event) => {
+    event.preventDefault();
+    let servicePrice = handleSetPrice();
+    const service = {
+      type: temporalServiceType,
+      technique: temporalServiceTechnique,
+      price: servicePrice
+    };
+    serviceList.push(service);
+    setTemporalServiceTechnique("Tradicional");
+    setTemporalServiceType("Manicure");
+    setAddService(false);
+    updatePrice()
+  };
+  
+  
+
   return (
     <TypeGuard>
       <main className={styles.main}>
         <Navbar />
-        <div className={styles.topSection}>
-          <Image className={styles.logo} src='/images/LogoChicIn.png' alt="Chic In" width={500} height={200} />
-          <h1 className={styles.title}>Uñas a domicilio</h1>
-        </div>
         {hasActiveService ? (
           <div className={styles.alert}>
             <p>Tienes un servicio activo o pendiente. No puedes solicitar otro hasta que se complete.</p>
@@ -173,57 +175,21 @@ export default function Home() {
           </div>
         ) : (
           <form id="serviceForm" className={styles.form} onSubmit={handleSubmit}>
-            <div className={styles.formRow2}>
-              <div className={styles.formInputContainer3}>
-                <p>Manicure</p>
-                <div className={styles.counterContainer}>
-                  <button type="button" onClick={() => handleDecrement('manicure')} className={styles.counterButton}>-
-                  </button>
-                  <span>{manicureCount}</span>
-                  <button type="button" onClick={() => handleIncrement('manicure')} className={styles.counterButton}>+
-                  </button>
-                </div>
-              </div>
-              <div className={styles.formInputContainer3}>
-                <p>Pedicure</p>
-                <div className={styles.counterContainer}>
-                  <button type="button" onClick={() => handleDecrement('pedicure')} className={styles.counterButton}>-
-                  </button>
-                  <span>{pedicureCount}</span>
-                  <button type="button" onClick={() => handleIncrement('pedicure')} className={styles.counterButton}>+
-                  </button>
-                </div>
-              </div>
-              <div className={styles.formInputContainer3}>
-                <p>Manos y pies</p>
-                <div className={styles.counterContainer}>
-                  <button type="button" onClick={() => handleDecrement('handsFeet')} className={styles.counterButton}>-
-                  </button>
-                  <span>{handsFeetCount}</span>
-                  <button type="button" onClick={() => handleIncrement('handsFeet')} className={styles.counterButton}>+
-                  </button>
-                </div>
-              </div>
+            <Image className={styles.logo} src='/images/LogoChicIn.png' alt="Chic In" width={500} height={200} />
+            <h1 className={styles.title}>Uñas a domicilio</h1>
+            <div className={styles.addNewService}>
+              <button type="button" onClick={() => setAddService(true)} className={styles.addNewServiceButton}><p>Agrega un servicio</p></button>
+            </div>
+            <div className={styles.addedServices}>
+              {serviceList.length > 0 ? (
+                serviceList.map((item, index) => (
+                  <div className={styles.addedService} key={index}> <p>{item.type}</p><p>{item.technique}</p><p>${item.price}</p></div>
+                ))
+              ) : (
+                <p>No hay servicios aun</p>
+              )}
             </div>
             <div className={styles.formRow}>
-              <div className={styles.formInputContainer}>
-                <p>Técnica</p>
-                <select
-                  className={styles.selectBox}
-                  value={serviceType}
-                  onChange={(e) => {
-                    setServiceType(e.target.value)
-                  }}
-                  required
-                >
-                  <option value="">¿Qué técnica deseas?</option>
-                  <option value="Tradicional">Tradicional</option>
-                  <option value="Semipermanente">Semipermanente</option>
-                  <option value="Gel">Extensión en soft gel</option>
-                  <option value="Acrilico">Baño en acrílico</option>
-                </select>
-              </div>
-
               <div className={styles.formInputContainer}>
                 <p>Fecha y hora</p>
                 <input
@@ -235,8 +201,6 @@ export default function Home() {
                   required
                 />
               </div>
-            </div>
-            <div className={styles.formRow}>
               <div className={styles.formInputContainer}>
                 <p>Teléfono</p>
                 <input
@@ -248,6 +212,8 @@ export default function Home() {
                   required
                 />
               </div>
+            </div>
+            <div className={styles.formRow}>              
               <div className={styles.formInputContainer}>
                 <p>Ciudad</p>
                 <input
@@ -259,9 +225,7 @@ export default function Home() {
                   required
                 />
               </div>
-            </div>
-
-            <div className={styles.longFormRow}>
+              <div className={styles.formInputContainer}>
               <p>Dirección</p>
               <input
                 type="text"
@@ -271,8 +235,8 @@ export default function Home() {
                 onChange={(e) => setAddress(e.target.value)}
                 required
               />
+              </div>
             </div>
-
             <div className={styles.longFormRow}>
               <p>Comentarios</p>
               <input
@@ -303,6 +267,41 @@ export default function Home() {
             </div>
           </div>
         )}
+
+        {addService && (
+          <div className={styles.addServiceModal}>
+            <form className={styles.addServiceForm} onSubmit={addNewService}>
+              <h2>Agregar Servicio</h2>
+              <div className={styles.addServiceinputContainer}>
+                <p>Cuál servicio buscas?</p>
+                <select name="Selecciona un servicio" className={styles.selectBox} required
+                onChange={(e) => {
+                  setTemporalServiceType(e.target.value)
+                }}>
+                  <option value={"Manicure"} selected>Manicure</option>
+                  <option value={"Pedicure"}>Pedicure</option>
+                  <option value={"Manos y Pies"}>Manos y pies</option>
+                </select>
+              </div>
+              <div className={styles.addServiceinputContainer}>
+                <p>¿Cuál técnica de uñas deseas?</p>
+                <select name="Selecciona una tecnica" className={styles.selectBox}  required 
+                onChange={(e) => {
+                  setTemporalServiceTechnique(e.target.value)
+                }}>
+                  <option value="Tradicional" selected>Tradicional</option>
+                  <option value="Semipermanente">Semipermanente</option>
+                  <option value="Gel">Extensión en soft gel</option>
+                  <option value="Acrilico">Baño en acrílico</option>
+                </select>
+              </div>
+              <button type="submit" className={styles.addServiceButtom}>Agregar servicio</button>
+            </form>
+            <button type="cancel" className={styles.cancelAddServiceButton} onClick={()=> setAddService(false)}>Cancelar</button>
+          </div>
+        )
+
+        }
       </main>
     </TypeGuard>
   );

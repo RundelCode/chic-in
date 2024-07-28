@@ -88,8 +88,6 @@ const ProviderProfile = () => {
             cancelService(activeService.id);
         }
     }
-
-    // Function to format dates with time
     const formatDate = (date) => {
         return date ? format(new Date(date), 'MMM d, yyyy h:mm a') : '';
     };

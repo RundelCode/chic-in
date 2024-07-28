@@ -98,7 +98,7 @@ export const AuthProvider = ({ children }) => {
         router.push('/Login');
     };
 
-    const getClient = async (userId, loginToken) => {
+    const getClient = async (userId) => {
         try {
             const response = await axios.get(`${APIURL}/api/clients/${userId}`, {
                 headers: {

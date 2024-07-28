@@ -13,7 +13,7 @@ import { format } from 'date-fns';
 
 const ProviderList = () => {
   const { acceptService, getAllServices } = useService();
-  const { loginToken, user } = useAuth();
+  const {getClient } = useAuth();
   const router = useRouter();
 
   const [provider, setProvider] = useState(null);
@@ -21,9 +21,6 @@ const ProviderList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [sortOption, setSortOption] = useState("Relevancia");
-  const [serviceType, setServiceType] = useState("Lifting de pestañas");
-  const [city, setCity] = useState("Pereira");
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -36,11 +33,27 @@ const ProviderList = () => {
     }
   }, [router]);
 
+  const setAddress = async (list)=>{
+    for(let i=0; i<list.length; i++){
+      console.log(list[i].clientId)
+      let client = {}
+      try{
+        client = await getClient(list[i].clientId)
+        list[i]['address'] = client.address;
+      }catch(err){
+        console.log(err)
+      }
+    }
+    return list
+  }
+
   const fetchData = async (token) => {
     try {
       const services = await getAllServices(token);
-      const list = services.filter(service => service.status === "Pending");
-      setServiceList(Array.isArray(list) ? list : []);
+      let list = services.filter(service => service.status === "Pending");
+      let newList = await setAddress(list);
+      console.log(newList)
+      setServiceList(Array.isArray(newList) ? newList : []);
       setLoading(false);
     } catch (err) {
       setError("Error fetching services");
@@ -61,7 +74,6 @@ const ProviderList = () => {
     setShowModal(false);
   };
 
-  // Function to format dates
   const formatDate = (date) => {
     return date ? format(new Date(date), 'MMM d, yyyy h:mm a') : '';
   };
@@ -88,41 +100,12 @@ const ProviderList = () => {
           />
           <h1 className={styles.title}>Lista De Servicios</h1>
         </div>
-        {/*
-        <div className={styles.filterContainer}>
-          <div className={styles.filterGroup}>
-            <label className={styles.filterLabel}>Ordenar por</label>
-            <select className={styles.filterSelect} value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
-              <option>Relevancia</option>
-              <option>Precio</option>
-              <option>Calificación</option>
-            </select>
-          </div>
-          <div className={styles.filterGroup}>
-            <label className={styles.filterLabel}>Tipo de servicio</label>
-            <select className={styles.filterSelect} value={serviceType} onChange={(e) => setServiceType(e.target.value)}>
-              <option>Lifting de pestañas</option>
-              <option>Manicure</option>
-              <option>Pedicure</option>
-            </select>
-          </div>
-          <div className={styles.filterGroup}>
-            <label className={styles.filterLabel}>Ciudad</label>
-            <select className={styles.filterSelect} value={city} onChange={(e) => setCity(e.target.value)}>
-              <option>Pereira</option>
-              <option>Medellín</option>
-              <option>Bogotá</option>
-            </select>
-          </div>
-        </div>
-        */}
-
         <div className={styles.servicesContainer}>
           {serviceList.length > 0 ? (
             serviceList.map(service => (
               <div key={service.id} className={styles.serviceCard}>
                 <h3 className={styles.serviceTitle}>{service.title}</h3>
-                <p className={styles.serviceDescription}>{service.city}</p>
+                <p className={styles.serviceDescription}>{service.address}</p>
                 <p className={styles.serviceTime}>{formatDate(service.finishDate)}</p>
                 <p className={styles.serviceDescription}>{service.description}</p>
                 <p className={styles.servicePrice}>${service.price} - Efectivo(COP)</p>

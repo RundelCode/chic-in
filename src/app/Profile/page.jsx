@@ -87,22 +87,10 @@ const Profile = () => {
         }
     };
 
-    const editData = () => {
-        const updatedUser = {
-            ...user,
-            name,
-            email,
-            address,
-            phone
-        };
-        // editUserData(updatedUser, loginToken);
-    };
-
     const cancelActiveService = () => {
         cancelService(service.id);
     };
 
-    // Format dates with time
     const formatDate = (date) => {
         return date ? format(new Date(date), 'MMM d, yyyy h:mm a') : '';
     };
@@ -112,31 +100,22 @@ const Profile = () => {
             <TypeGuard2>
                 <div className={styles.main}>
                     <Navbar />
-                    <div className={styles.topSection}>
-                        <Image className={styles.logo} src='/images/LogoChicIn.png' alt="Chic In" width={500} height={200} />
-                        <h1 className={styles.title}>Mi perfil</h1>
-                    </div>
                     <div className={styles.bottomSection}>
                         <div className={styles.userDataContainer}>
+
                             <div className={styles.userData}>
+                                <h1>Mi Perfil</h1>
                                 <div className={styles.inputContainer}>
-                                    <p>Nombre completo</p>
-                                    <input onChange={(e) => setName(e.target.value)} type='text' className={styles.dataInput} placeholder={name} />
+                                    <p><strong>Nombre completo:</strong><br /> {name}</p>
                                 </div>
                                 <div className={styles.inputContainer}>
-                                    <p>Correo electronico</p>
-                                    <input onChange={(e) => setEmail(e.target.value)} type='text' className={styles.dataInput} placeholder={email} />
+                                    <p><strong>Correo electronico: </strong><br /> {email}</p>
                                 </div>
                                 <div className={styles.inputContainer}>
-                                    <p>Dirección</p>
-                                    <input onChange={(e) => setAddress(e.target.value)} type='text' className={styles.dataInput} placeholder={address} />
+                                    <p><strong>Dirección:</strong><br /> {address}</p>
                                 </div>
                                 <div className={styles.inputContainer}>
-                                    <p>Teléfono</p>
-                                    <input onChange={(e) => setPhone(e.target.value)} type='text' className={styles.dataInput} placeholder={phone} />
-                                </div>
-                                <div className={styles.inputContainer}>
-                                    <button className={styles.editData} onClick={editData} id='editData'>Modificar datos</button>
+                                    <p><strong>Teléfono:</strong><br /> {phone}</p>
                                 </div>
                                 <div className={styles.inputContainer}>
                                     <button className={styles.logOut} onClick={handleLogout} id='logOut'>Cerrar sesión</button>
@@ -158,10 +137,10 @@ const Profile = () => {
                                 </div>
                                 {service ? (
                                     <div className={styles.serviceInfo}>
-                                        <p className={styles.serviceInfoText}>{service.title}</p>
-                                        <p className={styles.serviceInfoText}>{service.price}</p>
-                                        <p className={styles.serviceInfoText}>{formatDate(service.requestDate)}</p>
-                                        <p className={styles.serviceInfoText}>{formatDate(service.finishDate)}</p>
+                                        <p className={styles.serviceInfoText}><strong className={styles.phoneIndex}>Titulo: </strong>{service.title}</p>
+                                        <p className={styles.serviceInfoText}><strong className={styles.phoneIndex}>Precio: </strong>{service.price}</p>
+                                        <p className={styles.serviceInfoText}><strong className={styles.phoneIndex}>Fecha de solicitud: </strong>{formatDate(service.requestDate)}</p>
+                                        <p className={styles.serviceInfoText}><strong className={styles.phoneIndex}>Fecha de realización: </strong>{formatDate(service.finishDate)}</p>
                                         <div className={styles.serviceInfoText}>
                                             <button onClick={cancelActiveService} className={styles.cancelButton}>Cancelar</button>
                                         </div>
@@ -175,7 +154,7 @@ const Profile = () => {
                                     <h2>Historial de servicios</h2>
                                 </div>
                                 <div className={styles.serviceIndex}>
-                                    <p className={styles.serviceText}>Título</p>
+                                    <p className={styles.serviceText} style={{ marginRight: "10px" }}>Título</p>
                                     <p className={styles.serviceText}>Precio</p>
                                     <p className={styles.serviceText}>Fecha de solicitud</p>
                                     <p className={styles.serviceText}>Fecha de realización</p>
@@ -184,10 +163,10 @@ const Profile = () => {
                                 {history.length > 0 ? (
                                     history.map((item, index) => (
                                         <div key={index} className={styles.serviceInfo}>
-                                            <p className={styles.serviceInfoText}>{item.title}</p>
-                                            <p className={styles.serviceInfoText}>${item.price} COP</p>
-                                            <p className={styles.serviceInfoText}>{formatDate(item.requestDate)}</p>
-                                            <p className={styles.serviceInfoText}>{formatDate(item.finishDate)}</p>
+                                            <p className={styles.serviceInfoText} style={{ marginRight: "10px" }}><strong className={styles.phoneIndex}>Titulo: </strong>{item.title}</p>
+                                            <p className={styles.serviceInfoText}><strong className={styles.phoneIndex}>Precio: </strong> ${item.price} COP</p>
+                                            <p className={styles.serviceInfoText}><strong className={styles.phoneIndex}>Fecha de solicitud: </strong>{formatDate(item.requestDate)}</p>
+                                            <p className={styles.serviceInfoText}><strong className={styles.phoneIndex}>Fecha de realización: </strong>{formatDate(item.finishDate)}</p>
                                             <div className={styles.serviceInfoText}>
                                                 <div className={styles.serviceState}>{item.status}</div>
                                             </div>
