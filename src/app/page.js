@@ -251,7 +251,7 @@ export default function Home() {
             <div className={styles.prices}>
               <p>Precio del servicio: $ {price}</p>
               <p>Precio del domicilio: $ 20000</p>
-              <p>Total: {totalPrice} (COP)</p>
+              <p>Total: $ {totalPrice} (COP)</p>
             </div>
             <div className={styles.formRow}>
               <button type="submit" className={styles.sendButton}>Solicitar servicio</button>
