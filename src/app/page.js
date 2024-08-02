@@ -306,3 +306,5 @@ export default function Home() {
     </TypeGuard>
   );
 }
+
+/*Agregar funcionalidad de responsive al page sin afectar entornos*/
