@@ -360,3 +360,34 @@
         margin-bottom: 10px;
     }
 }
+
+@media (max-width: 768px) {
+    .topSection {
+        height: 50vh;
+    }
+
+    .logo {
+        width: 300px;
+        height: 150px;
+    }
+
+    .form {
+        width: 300px;
+        padding: 15px;
+    }
+
+    .title {
+        font-size: 20px;
+        margin-top: -30px;
+    }
+
+    .formInput,
+    .selectBox {
+        height: 35px;
+    }
+
+    .sendButton {
+        height: 35px;
+        font-size: 14px;
+    }
+}
