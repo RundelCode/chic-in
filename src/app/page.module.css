@@ -391,3 +391,55 @@
         font-size: 14px;
     }
 }
+
+@media (max-width: 576px) {
+    .topSection {
+        height: 40vh;
+    }
+
+    .logo {
+        width: 250px;
+        height: 125px;
+    }
+
+    .form {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .title {
+        font-size: 18px;
+        margin-top: -20px;
+    }
+
+    .formInput,
+    .selectBox {
+        font-size: 14px;
+        height: 30px;
+    }
+
+    .sendButton {
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .confirmation {
+        padding: 20px;
+    }
+
+    .ConfirmationModal {
+        width: 80%;
+        height: auto;
+        padding: 15px;
+    }
+
+    .confirmationText {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .serviceListLink {
+        font-size: 16px;
+        text-align: center;
+    }
+}
