@@ -18,10 +18,11 @@ const TypeGuard2 = ({ children }) => {
   }, [router]);
 
   if (loading) {
-    return <div className={styles.loading}>
-        <div className={styles.loadingSpinner}>
-            Loading...
-        </div>
+    return <div className={styles.loadingScreen}>
+      <h2>CARGANDO...</h2>
+      <div className={styles.loader}>
+
+      </div>
     </div>;
   }
 

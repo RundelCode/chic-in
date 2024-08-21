@@ -1,4 +1,3 @@
-// src/components/AuthGuard.js
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
@@ -18,11 +17,11 @@ const AuthGuard = ({ children }) => {
   }, [router]);
 
   if (loading) {
-    return <div className={styles.loading}>
-      Loading...
-        <div className={styles.loadingSpinner}>
-            
-        </div>
+    return <div className={styles.loadingScreen}>
+      <h2>CARGANDO...</h2>
+      <div className={styles.loader}>
+
+      </div>
     </div>;
   }
 

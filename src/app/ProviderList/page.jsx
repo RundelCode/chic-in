@@ -13,7 +13,7 @@ import { format } from 'date-fns';
 
 const ProviderList = () => {
   const { acceptService, getAllServices } = useService();
-  const {getClient } = useAuth();
+  const { getClient } = useAuth();
   const router = useRouter();
 
   const [provider, setProvider] = useState(null);
@@ -21,6 +21,8 @@ const ProviderList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [details, setDetails] = useState({})
+  const [detailModal, setDetailModalVisivility] = useState(false)
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -33,30 +35,23 @@ const ProviderList = () => {
     }
   }, [router]);
 
-  const setAddress = async (list)=>{
-    for(let i=0; i<list.length; i++){
-      console.log(list[i].clientId)
-      let client = {}
-      try{
-        client = await getClient(list[i].clientId)
-        list[i]['address'] = client.address;
-      }catch(err){
-        console.log(err)
-      }
-    }
-    return list
+
+  const handleDetails = (serviceDetails) => {
+    setDetailModalVisivility(true);
+    setDetails(serviceDetails)
+    console.log(detailModal)
+    console.log(details.Microservices)
   }
+
 
   const fetchData = async (token) => {
     try {
       const services = await getAllServices(token);
       let list = services.filter(service => service.status === "Pending");
-      let newList = await setAddress(list);
-      console.log(newList)
-      setServiceList(Array.isArray(newList) ? newList : []);
+      setServiceList(Array.isArray(list) ? list : []);
       setLoading(false);
     } catch (err) {
-      setError("Error fetching services");
+      setError("Error obteniendo los servicios");
       setLoading(false);
     }
   };
@@ -66,7 +61,7 @@ const ProviderList = () => {
       await acceptService(serviceId, provider.provider.id, provider.token);
       setShowModal(true);
     } catch (err) {
-      console.error("Error accepting service:", err);
+      console.error("Error aceptando el servicio:", err);
     }
   };
 
@@ -79,7 +74,12 @@ const ProviderList = () => {
   };
 
   if (loading) {
-    return <div className={styles.loader}>Loading...</div>;
+    return <div className={styles.loadingScreen}>
+      <h2>CARGANDO SERVICIOS...</h2>
+      <div className={styles.loader}>
+
+      </div>
+    </div>;
   }
 
   if (error) {
@@ -105,10 +105,16 @@ const ProviderList = () => {
             serviceList.map(service => (
               <div key={service.id} className={styles.serviceCard}>
                 <h3 className={styles.serviceTitle}>{service.title}</h3>
-                <p className={styles.serviceDescription}>{service.address}</p>
+                <p className={styles.serviceDescription}>{service.city}</p>
                 <p className={styles.serviceTime}>{formatDate(service.finishDate)}</p>
                 <p className={styles.serviceDescription}>{service.description}</p>
                 <p className={styles.servicePrice}>${service.price} - Efectivo(COP)</p>
+                <button
+                  className={styles.detailsButton}
+                  onClick={() => handleDetails(service)}
+                >
+                  Ver detalles
+                </button>
                 <button
                   className={styles.serviceButton}
                   onClick={() => handleAcceptService(service.id)}
@@ -131,6 +137,42 @@ const ProviderList = () => {
           </div>
         )}
       </div>
+      {detailModal && (
+        <div className={styles.detailsModal}>
+          <div className={styles.details}>
+            <div className={styles.detailsTextSection}>
+              <h2>{details.title}</h2>
+              <h4>Dirección: {details.city}</h4>
+              <h5>Fecha de la solicitud {details.requestDate}</h5>
+              <h5>Fecha del servicio {details.finishDate}</h5>
+              <h5>Precio total: ${details.price} - Efectivo(COP)</h5>
+              <h5>Descripción: {details.description}</h5>
+              <div className={styles.detailsMicroServices}>
+                <h5>Microservicios: </h5>
+                {details.Microservices.map(microservice=>{
+                  return(
+                    <li>{`${microservice.serviceType} ${microservice.technique}`}</li>
+                  )
+                })}
+              </div> 
+            </div>
+            <div className={styles.detailsButtonSection}>
+              <button
+                className={styles.detailsButton}
+                onClick={() => setDetailModalVisivility(false)}
+              >
+                Atras
+              </button>
+              <button
+                className={styles.serviceButton}
+                onClick={() => handleAcceptService(details.id)}
+              >
+                Aceptar servicio
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </AuthGuard>
   );
 };

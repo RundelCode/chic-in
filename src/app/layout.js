@@ -3,6 +3,7 @@ import "./globals.css";
 import { AuthProvider } from './context/authContext'
 import { ProviderProvider } from './context/providerContext'
 import { ServiceProvider } from "./context/serviceContext";
+import ReduxProvider from "./GlobalContext/Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,13 +20,15 @@ export default function RootLayout({ children }) {
         <meta name="description" content={metadata.description} />
       </head>
       <body className={inter.className}>
-        <AuthProvider>
-          <ServiceProvider>
-            <ProviderProvider>
-              {children}
-            </ProviderProvider>
-          </ServiceProvider>
-        </AuthProvider>
+        <ReduxProvider>
+          <AuthProvider>
+            <ServiceProvider>
+              <ProviderProvider>
+                {children}
+              </ProviderProvider>
+            </ServiceProvider>
+          </AuthProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

@@ -40,6 +40,7 @@ export const ServiceProvider = ({ children }) => {
 
     const getAllServices = async (loginToken) => {
         try {
+            
             const response = await axios.get(`${APIURL}/api/services`, {
                 headers: {
                     'Authorization': `Bearer ${loginToken}`,
@@ -79,8 +80,7 @@ export const ServiceProvider = ({ children }) => {
                 }
             });
             router.push("/providerProfile")
-            
-            
+
         } catch (err) {
             console.error(`Error ${err}`);
         }
@@ -155,8 +155,24 @@ export const ServiceProvider = ({ children }) => {
         }
     }
 
+    const getServiceById = async (serviceId)=>{
+        try {
+            const token = Cookies.get("token");
+            const decodedToken = JSON.parse(token)
+            const response = await axios.get(`${APIURL}/api/services/${serviceId}`,{
+                headers: {
+                    'Authorization': `Bearer ${decodedToken.token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.data;   
+        } catch (err) {
+            console.error(`Error ${err}`);
+        }
+    }
+
     return (
-        <ServiceContext.Provider value={{ setUserId, markAsFinished, setActiveService, pendingService, setServiceAsPending, requestService, getHistory, activeService, getAllServices, getActiveService, acceptService, cancelService }}>
+        <ServiceContext.Provider value={{ setUserId, markAsFinished, setActiveService, getServiceById, setServiceAsPending, requestService, getHistory, getAllServices, getActiveService, acceptService, cancelService }}>
             {children}
         </ServiceContext.Provider>
     );

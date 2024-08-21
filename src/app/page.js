@@ -26,11 +26,12 @@ export default function Home() {
   const [serviceList, setServiceList] = useState([])
   const [temporalServiceType, setTemporalServiceType] = useState("Manicure")
   const [temporalServiceTechnique, setTemporalServiceTechnique] = useState("Tradicional")
+  const [errorMicroservices, setErrorMicroservices] = useState(false)
 
   const updatePrice = () => {
     const DELIVERY_FEE = 20000;
     let total = 0;
-    for(let i=0; i<serviceList.length; i++){
+    for (let i = 0; i < serviceList.length; i++) {
       total = total + serviceList[i].price;
     }
     setPrice(total);
@@ -63,7 +64,7 @@ export default function Home() {
       setUserId(pendingService.id);
     }
   }, [user, loginToken, pendingService, getActiveService, requestService]);
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (hasActiveService) {
@@ -73,43 +74,52 @@ export default function Home() {
     const token = Cookies.get("token");
     const now = new Date();
     const formattedFinishDate = dateTime ? format(new Date(dateTime), 'yyyy-MM-dd') : '';
+
+    if(serviceList.length>0){
+      if (!token) {
+        const service = {
+          "serviceData": {
+            title: `Nuevo servicio de uñas`,
+            description: comments,
+            price: parseFloat(totalPrice),
+            requestDate: now.toISOString(),
+            finishDate: formattedFinishDate,
+            status: 'Pending',
+            clientId: decodedToken.client.id,
+            providerId: null,
+            city: city,
+            category: `Uñas`
+          },
+          "microservices": serviceList
   
-    if (!token) {
-      const categories = [];
-      if (manicureCount > 0) categories.push("Manicure");
-      if (pedicureCount > 0) categories.push("Pedicure");
-      if (handsFeetCount > 0) categories.push("Manos y Pies");
-      const service = {
-        title: `Nuevo servicio de uñas de tipo ${serviceType}`,
-        description: comments,
-        price: parseFloat(totalPrice),
-        requestDate: now.toISOString(),
-        finishDate: formattedFinishDate,
-        status: 'Pending',
-        clientId: null,
-        providerId: null,
-        city: city,
-        category: `${categories}`
-      };
-      setServiceAsPending(service);
-      router.push("/Login");
-    } else {
-      const decodedToken = JSON.parse(token);
+        };
+        setServiceAsPending(service);
+        router.push("/Login");
+      } else {
+        const decodedToken = JSON.parse(token);
   
-      const service = {
-        title: `Nuevo servicio de uñas de tipo ${serviceType}`,
-        description: comments,
-        price: parseFloat(totalPrice),
-        requestDate: now.toISOString(),
-        finishDate: formattedFinishDate,
-        status: 'Pending',
-        clientId: decodedToken.client.id,
-        providerId: null,
-        city: city,
-        category: `Manicure: ${manicureCount}, Pedicure: ${pedicureCount}, Manos y pies: ${handsFeetCount}`
-      };
-      requestService(service, loginToken);
-      setShowModal(true);
+        const service = {
+          "serviceData": {
+            title: `Nuevo servicio de uñas`,
+            description: comments,
+            price: parseFloat(totalPrice),
+            requestDate: now.toISOString(),
+            finishDate: formattedFinishDate,
+            status: 'Pending',
+            clientId: decodedToken.client.id,
+            providerId: null,
+            city: city,
+            category: `Uñas`
+          },
+          "microservices": serviceList
+  
+        };
+        console.log(service)
+        requestService(service, loginToken);
+        setShowModal(true);
+      }
+    }else{
+      setErrorMicroservices(true)
     }
   };
 
@@ -146,23 +156,31 @@ export default function Home() {
       }
     }
   };
-  
+
   const addNewService = (event) => {
     event.preventDefault();
+    setErrorMicroservices(false);
     let servicePrice = handleSetPrice();
     const service = {
-      type: temporalServiceType,
-      technique: temporalServiceTechnique,
-      price: servicePrice
+        serviceType: temporalServiceType,
+        technique: temporalServiceTechnique,
+        price: servicePrice
     };
+    const isServiceInList = serviceList.some(
+        (s) => s.serviceType === service.serviceType && s.technique === service.technique
+    );
+    if (isServiceInList) {
+        console.log("Este servicio ya está en la lista.");
+        return;
+    }
     serviceList.push(service);
     setTemporalServiceTechnique("Tradicional");
     setTemporalServiceType("Manicure");
     setAddService(false);
-    updatePrice()
-  };
-  
-  
+    updatePrice();
+
+    console.log(serviceList);
+};
 
   return (
     <TypeGuard>
@@ -180,6 +198,11 @@ export default function Home() {
             <div className={styles.addNewService}>
               <button type="button" onClick={() => setAddService(true)} className={styles.addNewServiceButton}><p>Agrega un servicio</p></button>
             </div>
+            {errorMicroservices == true? (
+                <p>Agrega un servicio primero.</p>
+              ): (
+                <></>
+              )}
             <div className={styles.addedServices}>
               {serviceList.length > 0 ? (
                 serviceList.map((item, index) => (
@@ -213,7 +236,7 @@ export default function Home() {
                 />
               </div>
             </div>
-            <div className={styles.formRow}>              
+            <div className={styles.formRow}>
               <div className={styles.formInputContainer}>
                 <p>Ciudad</p>
                 <input
@@ -226,15 +249,15 @@ export default function Home() {
                 />
               </div>
               <div className={styles.formInputContainer}>
-              <p>Dirección</p>
-              <input
-                type="text"
-                className={styles.formInput}
-                placeholder="Dirección"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                required
-              />
+                <p>Dirección</p>
+                <input
+                  type="text"
+                  className={styles.formInput}
+                  placeholder="Dirección"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  required
+                />
               </div>
             </div>
             <div className={styles.longFormRow}>
@@ -275,9 +298,9 @@ export default function Home() {
               <div className={styles.addServiceinputContainer}>
                 <p>Cuál servicio buscas?</p>
                 <select name="Selecciona un servicio" className={styles.selectBox} required
-                onChange={(e) => {
-                  setTemporalServiceType(e.target.value)
-                }}>
+                  onChange={(e) => {
+                    setTemporalServiceType(e.target.value)
+                  }}>
                   <option value={"Manicure"} selected>Manicure</option>
                   <option value={"Pedicure"}>Pedicure</option>
                   <option value={"Manos y Pies"}>Manos y pies</option>
@@ -285,10 +308,10 @@ export default function Home() {
               </div>
               <div className={styles.addServiceinputContainer}>
                 <p>¿Cuál técnica de uñas deseas?</p>
-                <select name="Selecciona una tecnica" className={styles.selectBox}  required 
-                onChange={(e) => {
-                  setTemporalServiceTechnique(e.target.value)
-                }}>
+                <select name="Selecciona una tecnica" className={styles.selectBox} required
+                  onChange={(e) => {
+                    setTemporalServiceTechnique(e.target.value)
+                  }}>
                   <option value="Tradicional" selected>Tradicional</option>
                   <option value="Semipermanente">Semipermanente</option>
                   <option value="Gel">Extensión en soft gel</option>
@@ -297,11 +320,9 @@ export default function Home() {
               </div>
               <button type="submit" className={styles.addServiceButtom}>Agregar servicio</button>
             </form>
-            <button type="cancel" className={styles.cancelAddServiceButton} onClick={()=> setAddService(false)}>Cancelar</button>
+            <button type="cancel" className={styles.cancelAddServiceButton} onClick={() => setAddService(false)}>Cancelar</button>
           </div>
-        )
-
-        }
+        )}
       </main>
     </TypeGuard>
   );

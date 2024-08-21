@@ -376,6 +376,8 @@
   background-color: #ffffff5d;
   backdrop-filter: blur(5px);
   position: fixed;
+  top: 0 ;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -397,6 +399,7 @@
 
 .confirmationText {
   font-size: 24px;
+  text-align: center;
 }
 
 .serviceListLink {
@@ -502,7 +505,7 @@
   }
 
   .form {
-    width: 500px;
+    width: 90%;
     padding: 10px;
   }
 

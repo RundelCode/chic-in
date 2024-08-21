@@ -5,6 +5,9 @@ import { useAuth } from '../context/authContext';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../GlobalContext/Features/Auth/AuthSlice';
+
 
 const Login = () => {
     const { login } = useAuth();
@@ -12,6 +15,9 @@ const Login = () => {
     const [selectedRole, setSelectedRole] = useState('clients');
     const [error, setError] = useState(false);
     const [charging, setCharging] = useState(false)
+
+    const userData = useSelector((state) => state.userData);
+    const dispatch = useDispatch();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
